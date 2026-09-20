@@ -1,0 +1,7 @@
+# Баланс-константы Cyberdyansk. Единственный источник правды для тюнинга (PLAN.md, «Риски»):
+# править числа здесь, не трогая код. Схема валидации — src/core/balance.ts (BalanceConfigSchema).
+
+apPerDay: 50            # GDD §2: AP за день
+dayStartClockMinutes: 480   # начало дня, минуты от полуночи (08:00)
+handSizeDefault: 4      # GDD §4: базовый размер руки (4 слота)
+drawApCostPerCard: 1    # AP за заполненный слот при доборе по баннеру колоды

@@ -1,0 +1,15 @@
+# PLACEHOLDER-колода (GDD §4: Down to Work — рабочая колода).
+# Финальный список карт придёт от пользователя.
+deckId: down-to-work
+title: "Down to Work"
+
+cards:
+  - id: dw-shift-offer
+    title: "Shift on the yard"
+    flavor: "Honest work, mostly. The pay is honest too."
+    actions:
+      - verb: "Take it"
+        apCost: 6
+        timeCostHours: 4
+        effects:
+          - { statusName: "Mood/Lethargy", delta: 1 }   # цена успеха (GDD §5)

@@ -1,0 +1,35 @@
+# PLACEHOLDER-колода текущей локации (GDD §4: Bordertown Life — кухня, наблюдение, mercy crew, одежда).
+# Финальный список карт придёт от пользователя; пока 3 карты для проверки пайплайна Phase 4.
+deckId: bordertown-life
+title: "Bordertown Life"
+
+cards:
+  - id: bt-watch-the-street
+    title: "Watch the street"
+    flavor: "Neon dreams and the hum of the Bordertown grid."
+    actions:
+      - verb: "Just look"            # бесплатное действие (GDD §4)
+        apCost: 0
+      - verb: "Do It"                # наблюдение → опыт Skill/Observation
+        apCost: 2
+        timeCostHours: 1
+        effects:
+          - { statusName: "Skill/Observation", delta: 1 }
+
+  - id: bt-kitchen-check
+    title: "The kitchen"
+    flavor: "Cold pizza, mostly... if you're lucky."   # GDD §9
+    actions:
+      - verb: "Check the leftovers"
+        apCost: 1
+        timeCostHours: 0.5
+
+  - id: bt-mercy-crew
+    title: "Mercy crew passing by"
+    flavor: "They patch up what the street breaks."
+    actions:
+      - verb: "Help"
+        apCost: 3
+        timeCostHours: 1
+        effects:
+          - { statusName: "Mood/Buzz", delta: 2 }

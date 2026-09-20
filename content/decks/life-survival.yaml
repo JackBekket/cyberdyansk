@@ -1,0 +1,23 @@
+# PLACEHOLDER-колода (GDD §4: Life/Survival — глобальные выживальские карточки).
+# Финальный список карт придёт от пользователя.
+deckId: life-survival
+title: "Life / Survival"
+
+cards:
+  - id: ls-going-down
+    title: "Going down"
+    flavor: "The city doesn't care that you're tired."
+    actions:
+      - verb: "Wait it out"
+        apCost: 2
+        timeCostHours: 3
+        effects:
+          - { statusName: "Mood/Calm", delta: 1 }
+
+  - id: ls-guns-check
+    title: "Gotta look after your guns..."
+    flavor: "A dirty gun is a dead man's ticket."   # GDD §8 (уход за оружием)
+    actions:
+      - verb: "Clean | 1"
+        apCost: 2
+        timeCostHours: 1
