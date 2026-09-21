@@ -49,6 +49,8 @@ interface WorldStore extends WorldSnapshot {
   balance: BalanceConfig;
   /** Накопленные изменения за текущий день — данные для сводки дня (Phase 6). */
   dayChanges: ChangedStatus[];
+  /** Мгновенное уведомление о размере руки (GDD §4: «HAND SIZE TEMPORARILY INCREASED» / «has dropped»). Не сериализуется. */
+  handSizeNotice: string | null;
 
   // --- Действия мира ---
   /**
@@ -58,8 +60,12 @@ interface WorldStore extends WorldSnapshot {
   spend(cost: ActionCost, effects?: Effect[]): ChangedStatus[];
   /** Применяет эффекты без стоимости (награды, пассивные бонусы). */
   applyEffects(effects: Effect[]): ChangedStatus[];
+  /** Тратит кредиты (Ohio Dollars); не уходит ниже нуля. */
+  spendCredits(amount: number): void;
   /** Добавляет модификатор размера руки с TTL в днях. */
   addHandSizeModifier(delta: number, durationDays: number): void;
+  /** Скрывает уведомление о размере руки (ушло по таймеру/клику). */
+  dismissHandSizeNotice(): void;
   /** Новый день: сброс AP/часов, истечение TTL-модификаторов, перенос dayChanges в журнал (Phase 6 расширит). */
   newDay(): void;
 }
@@ -116,6 +122,7 @@ export function createWorldStore(initial?: WorldSnapshot) {
       derivedStatuses: [],
       balance: DEFAULT_BALANCE,
       dayChanges: [],
+      handSizeNotice: null,
 
       spend(cost, effects = []) {
         const state = get();
@@ -146,6 +153,24 @@ export function createWorldStore(initial?: WorldSnapshot) {
       addHandSizeModifier(delta, durationDays) {
         set((s) => {
           s.handSizeModifiers.push({ delta, expiresOnDay: s.dayNumber + Math.max(1, durationDays) });
+          // Уведомление о смене размера руки (GDD §4): рост — «TEMPORARILY INCREASED», падение — «has dropped».
+          if (delta > 0) s.handSizeNotice = `HAND SIZE TEMPORARILY INCREASED (+${delta})`;
+          else if (delta < 0) s.handSizeNotice = `Your hand size has dropped (${delta}). Couldn't keep this rate up forever.`;
+        });
+      },
+
+      dismissHandSizeNotice() {
+        set((s) => {
+          s.handSizeNotice = null;
+        });
+      },
+
+      spendCredits(amount) {
+        if (amount <= 0) return;
+        const state = get();
+        if (amount > state.money) throw new Error(`Недостаточно кредитов: нужно ${amount}, доступно ${state.money}`);
+        set((s) => {
+          s.money -= amount;
         });
       },
 
@@ -156,7 +181,11 @@ export function createWorldStore(initial?: WorldSnapshot) {
           s.apLeft = s.balance.apPerDay;
           s.clockMinutes = s.balance.dayStartClockMinutes;
           s.dayOver = false;
-          // Истечение TTL-модификаторов руки (уведомления «has dropped» — Phase 4 UI)
+          // Истечение TTL-модификаторов руки (GDD §4: «Your hand size has dropped»).
+          const expired = s.handSizeModifiers.filter((m) => m.expiresOnDay <= s.dayNumber);
+          if (expired.length > 0 && expired.some((m) => m.delta !== 0)) {
+            s.handSizeNotice = "Your hand size has dropped. Couldn't keep this rate up forever.";
+          }
           s.handSizeModifiers = s.handSizeModifiers.filter((m) => m.expiresOnDay > s.dayNumber);
           s.dayChanges = [];
         });

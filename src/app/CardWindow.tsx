@@ -36,18 +36,19 @@ export function CardWindow({ cardId }: { cardId: string }) {
   const card = findCard(decks, cardId);
   if (!card) return null;
 
-  function canAfford(a: CardAction): boolean {
+  // Стрелочные функции (не hoisted): TS видит суженный тип `card` после раннего возврата.
+  const canAfford = (a: CardAction): boolean => {
     return (a.apCost ?? 0) <= apLeft && (a.creditsCost ?? 0) <= money;
-  }
+  };
 
   /** Исполнение действия: траты + эффекты в world, затем карта уходит в колоду. */
-  function perform(a: CardAction): void {
+  const perform = (a: CardAction): void => {
     const ws = useWorldStore.getState();
     try {
       ws.spend({ apCost: a.apCost, timeCostHours: a.timeCostHours }, a.effects);
-      if (a.creditsCost) ws.setState({ money: Math.max(0, ws.money - a.creditsCost) });
+      if (a.creditsCost) ws.spendCredits(a.creditsCost);
     } catch {
-      return; // не хватило AP — окно остаётся открытым
+      return; // не хватило AP/кредитов — окно остаётся открытым
     }
     playCard(card.id);
   }

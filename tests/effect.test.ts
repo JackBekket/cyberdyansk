@@ -1,6 +1,6 @@
 // Unit-тесты базовых примитивов GDD §3 (PLAN Phase 1).
 import { describe, expect, it } from 'vitest';
-import { applyEffects } from '../core/effect';
+import { applyEffects } from '../src/core/effect';
 import type { ChangedStatus } from '../core/effect';
 
 describe('applyEffects — применение эффектов к статусам', () => {

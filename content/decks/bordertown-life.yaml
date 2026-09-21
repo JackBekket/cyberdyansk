@@ -33,3 +33,14 @@ cards:
         timeCostHours: 1
         effects:
           - { statusName: "Mood/Buzz", delta: 2 }
+
+  # Daily-карта (GDD §4): гарантированно раз в день вне зависимости от колоды.
+  - id: bt-daily-feed
+    title: "The daily feed"
+    flavor: "You'll see this card once per day, every day, no matter what."
+    daily: true
+    actions:
+      - verb: "Skim it"
+        apCost: 1
+        effects:
+          - { statusName: "Mood/Buzz", delta: 1 }

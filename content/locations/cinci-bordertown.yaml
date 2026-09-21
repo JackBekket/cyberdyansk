@@ -1,0 +1,29 @@
+# Локация Cinci Bordertown (GDD §4/§9): статичная сетка действий хаба.
+# PLACEHOLDER-контент для пайплайна Phase 4; финальные действия придут с контентом GDD §10.
+locationId: cinci-bordertown
+title: "Cinci Bordertown"
+
+actions:
+  - verb: "Just look around"        # бесплатное действие (GDD §4)
+    apCost: 0
+  - verb: "Check the kitchen"       # GDD §9: кухня — бытовое действие хаба
+    apCost: 1
+    timeCostHours: 0.5
+    effects:
+      - { statusName: "Mood/Calm", delta: 1 }
+  - verb: "Watch the street"        # наблюдение → опыт (GDD §4: Bordertown Life)
+    apCost: 2
+    timeCostHours: 1
+    effects:
+      - { statusName: "Skill/Observation", delta: 1 }
+  - verb: "Sort your clothes"       # GDD §4: одежда — тематика Bordertown Life
+    apCost: 1
+    timeCostHours: 0.5
+    effects:
+      - { statusName: "Mood/Calm", delta: -1 }
+  - verb: "Listen to the grid"      # слухи/наблюдение (GDD §4)
+    apCost: 2
+    timeCostHours: 1
+    successChance: 35
+    effects:
+      - { statusName: "Skill/Observation", delta: 1 }

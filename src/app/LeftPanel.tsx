@@ -6,6 +6,7 @@
 import type { ReactNode } from 'react';
 import { useWorldStore } from '../core/world-store';
 import { canPickUpItem, canReloadOrSwapEquipment } from '../core/world-store';
+import { useCardStore } from '../cards/card-store';
 
 /** Секция дайджеста: заголовок + произвольное содержимое (GDD §11 — панель пересобирается). */
 export interface DigestSection {
@@ -73,8 +74,12 @@ export function LeftPanel() {
   const carryingCapacity = useWorldStore((s) => s.carryingCapacity);
 
   // Действия левой панели (GDD §11): refresh / clear hand / binge mode / buy credits.
-  // Логика — в своих фазах; пока заглушки-кнопки (refresh станет добором руки в Phase 4).
-  const panelActions = ['Refresh', 'Clear hand', 'Binge mode', 'Buy credits'];
+  // Refresh — добор в пустые слоты руки по очереди из всех колод за AP (Phase 4); остальные — заглушки до своих фаз.
+  const dayOver = useWorldStore((s) => s.dayOver);
+  const apLeft = useWorldStore((s) => s.apLeft);
+  const perCard = useWorldStore((s) => s.balance.drawApCostPerCard);
+  const hasEmptySlot = useCardStore((s) => (s.handState?.slots.some((c) => c === null) ?? false));
+  const canRefresh = !dayOver && hasEmptySlot && apLeft >= perCard;
 
   return (
     <aside className="flex w-60 shrink-0 flex-col gap-4 overflow-y-auto border-r border-cyber-line bg-cyber-panel p-3">
@@ -86,7 +91,13 @@ export function LeftPanel() {
       <section>
         <h3 className="mb-1 text-[10px] tracking-widest text-cyber-dim">ACTIONS</h3>
         <div className="flex flex-wrap gap-1">
-          {panelActions.map((a) => (
+          {/* Refresh (GDD §11): добор в пустые слоты руки по очереди из всех колод, каждая карта — AP. */}
+          <button key="Refresh" type="button" disabled={!canRefresh} onClick={() => useCardStore.getState().refresh()}
+            title={perCard > 0 ? `Draw into empty slots (${perCard} AP per card)` : 'Draw into empty slots'}
+            className="border border-cyber-line px-2 py-0.5 text-xs hover:border-cyber-orange disabled:opacity-40">
+            Refresh
+          </button>
+          {['Clear hand', 'Binge mode', 'Buy credits'].map((a) => (
             <button key={a} type="button" disabled title="Логика — в соответствующей фазе плана"
               className="border border-cyber-line px-2 py-0.5 text-xs text-cyber-dim">
               {a}

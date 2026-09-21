@@ -28,6 +28,7 @@ export type CardAction = z.infer<typeof CardActionSchema>;
 
 /** Требования карты к миру (GDD §4 CARD REQUIREMENTS): имена статусов, которые должны существовать. */
 export const RequirementsSchema = z.array(z.string().min(1)).optional();
+export type Requirements = z.infer<typeof RequirementsSchema>;
 
 /** Карточка (PLAN Phase 4). `daily: true` — daily-карта: гарантированно раз в день вне зависимости от колоды (GDD §4). */
 export const CardSchema = z.object({
@@ -47,6 +48,13 @@ export const DeckSchema = z.object({
   cards: z.array(CardSchema).min(1),
 });
 export type DeckBase = z.infer<typeof DeckSchema>;
+
+/** Колода в форме, с которой работает игра: карточки уже снабжены deckId (см. withDeckIds). */
+export interface Deck {
+  deckId: string;
+  title: string;
+  cards: Card[];
+}
 
 /** Локация (GDD §9): сетка статичных действий + хабы. Пока — только статичные действия. */
 export const LocationActionSchema = CardActionSchema;

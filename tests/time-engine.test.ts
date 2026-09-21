@@ -1,6 +1,6 @@
 // Unit-тесты движка времени (GDD §2, PLAN Phase 1).
 import { describe, expect, it } from 'vitest';
-import { advanceClock, daytimeLabel, formatClock } from '../core/time-engine';
+import { advanceClock, daytimeLabel, formatClock } from '../src/core/time-engine';
 
 describe('advanceClock — продвижение игровых часов', () => {
   it('добавляет временную цену действия к часам (GDD §2: «| 1», «| 3»)', () => {

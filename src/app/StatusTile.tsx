@@ -18,7 +18,11 @@ interface StatusTileProps {
  */
 export function StatusTile({ changed }: StatusTileProps) {
   const isNumeric = typeof changed.after === 'number';
-  const delta = isNumeric && typeof changed.before === 'number' ? changed.after - changed.before : null;
+  // Усузание типов в одном выражении — иначе TS не видит, что обе стороны числовые.
+  const delta =
+    typeof changed.after === 'number' && typeof changed.before === 'number'
+      ? changed.after - changed.before
+      : null;
 
   let headline: string;
   if (changed.before === undefined) {

@@ -3,11 +3,14 @@
 
 import type { WorldSnapshot } from './world-store';
 import type { ChangedStatus } from './effect';
+import type { HandState } from '../cards/hand';
 
-/** Всё, что переживает перезагрузку: ядро мира + локация + журнал дня (дельты в CharacterView). */
+/** Всё, что переживает перезагрузку: ядро мира + локация + журнал дня (дельты в CharacterView) + рука (Phase 4). */
 export interface PersistedWorld extends WorldSnapshot {
   location: string;
   dayChanges: ChangedStatus[];
+  /** Состояние руки/колод — восстанавливает раздатку после перезагрузки. */
+  handState?: HandState | null;
 }
 
 const SAVE_KEY = 'cyberdyansk.save.v1';

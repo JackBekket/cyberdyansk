@@ -2,6 +2,8 @@
 
 Поэтапный план разработки форка. GDD: `GAME_DESIGN.md`. Стек: **React + TypeScript** (UI-слой), Electron — оболочка на позднем этапе (Phase 8).
 
+**Текущий статус (2026-09-21):** Phase 1–4 ✅ завершены; **актуальная фаза — Phase 5** 🚧 (исполнение действий работает без броска: трата стоимости + эффекты, `successChance` — плоский % из данных карты). В Phase 6 уже заложены заделы: флаг `dayOver` с гейтингом UI, `world-store.newDay()`, `card-store.reshuffleForNewDay()`. Тесты: 45 unit-тестов (`tests/world-store.test.ts`, `effect.test.ts`, `time-engine.test.ts`, `cards.test.ts`).
+
 ---
 
 ## 0. Стек и инструменты
@@ -31,6 +33,9 @@ cyberdyansk/
       Shell.tsx           # верхняя навигация + левая/правая панели
       StoryView.tsx       # сетка локаций + рука (Phase 4)
       CharacterView.tsx   # вкладки характеристик (Phase 2)
+      CardWindow.tsx      # окно карты: flavor, требования, действия (Phase 4–5)
+      LeftPanel.tsx / RightPanel.tsx   # панели дайджеста и предупреждений (GDD §11)
+      CharacterCreation.tsx            # экран создания мира (Phase 3)
       StatusTile.tsx      # единый формат отчётности (GDD §12.2)
     core/                 # чистый домен, без React
       status.ts           # Status, Effect — базовые примитивы GDD §3
@@ -38,11 +43,15 @@ cyberdyansk/
       world-store.ts      # zustand store: AP, время, деньги, stash, capacity...
       time-engine.ts      # AP ↔ игровые часы (Phase 1)
       balance.ts          # zod-схема + DEFAULT_BALANCE (зеркало content/balance.yaml)
+      new-game.ts         # сборка стартового мира из контента (Phase 3)
+      persistence.ts      # save/load мира в localStorage, автосейв (Phase 3+)
       checks.ts           # success chance из skills/moods/equipment (Phase 5)
     cards/                # карточная система (Phase 4–6)
-      types.ts            # Card, Deck, Action, Cost, Requirement
+      types.ts            # Card, Deck, Action, Cost, Requirement (zod-схемы)
       deck-loader.ts      # YAML → zod-валидированные колоды
       hand.ts             # раздача, размер руки (статус с TTL), discard/defer/draw
+      card-store.ts       # zustand: рука/колоды/добор/playCard/reshuffle (Phase 4)
+      starter-content.ts  # загрузка стартовых колод и локаций из content/ (Phase 3–4)
     content/              # (Phase 7+) items/*.yaml, locations/*.yaml
   electron/               # main/preload (Phase 8)
 ```
@@ -65,7 +74,7 @@ cyberdyansk/
 
 **Acceptance:** тестовый сценарий «сделать действие → AP упало, часы сдвинулись, эффекты применились» проходит без UI. ✅ (`tests/world-store.test.ts`)
 
-## Phase 2 — Каркас приложения и окна (неделя 1–2) 🚧
+## Phase 2 — Каркас приложения и окна (неделя 1–2) ✅
 
 Цель: виден скелет игры по раскладке GDD §11.
 
@@ -77,39 +86,41 @@ cyberdyansk/
 - [x] `CharacterView` — **реальная вёрстка** по GDD §3: 4 секции (Skills/Moods/Menaces/Mutations + Character/Body) рендерит статусы из store с дельтами; фильтр by name
 - [x] Компонент `StatusTile { status, delta? }` — единый формат отчётности (GDD §12.2): будет переиспользован в результатах действий и сводке дня
 
-**Acceptance:** открываешь app → видишь раскладку как на скриншотах; CharacterView показывает реальные данные из store с дельтами.
+**Acceptance:** открываешь app → видишь раскладку как на скриншотах; CharacterView показывает реальные данные из store с дельтами. ✅
 
-## Phase 3 — Создание персонажа (неделя 2–3)
+## Phase 3 — Создание персонажа (неделя 2–3) ✅
 
 Цель: генерация/создание мира в начале игры.
 
-- [ ] Экран создания: имя, базовые текстовые статусы (Base gender, Preferred style, Your time/Your life...) по образцу GDD §Character; стартовые числовые значения skills/moods
-- [ ] Стартовый мир: локация Cinci Bordertown, кредиты, stash/capacity, транспорт, первый набор карточек локации из `content/`
-- [ ] Сохранение мира в localStorage (сериализация store) — задел на save/load
+- [x] Экран создания: имя, базовые текстовые статусы (Base gender, Preferred style, Your time/Your life...) по образцу GDD §Character; стартовые числовые значения skills/moods (`src/app/CharacterCreation.tsx` + `src/core/new-game.ts`)
+- [x] Стартовый мир: локация Cinci Bordertown, кредиты ($50), stash/capacity, транспорт, первые колоды из `content/decks/` и сетка действий локации `content/locations/cinci-bordertown.yaml` (Phase 4)
+- [x] Сохранение мира в localStorage (`src/core/persistence.ts`, автосейв в `App.tsx`) — задел на save/load; с Phase 4 сериализуется и рука
 
-**Acceptance:** «New game» → экран создания → попадание в StoryView с заполненным левым дайджестом.
+**Acceptance:** «New game» → экран создания → попадание в StoryView с заполненным левым дайджестом. ✅ (проверено в браузере)
 
-## Phase 4 — Колоды, карточки, рука (неделя 3–5)
+## Phase 4 — Колоды, карточки, рука (неделя 3–5) ✅
 
 Цель: сердце игры работает по GDD §4.
 
-- [ ] Типы: `Card { id, title, flavor, deckId, requirements?, daily?, actions[] }`, `Action { verb, cost?: Cost, successChance? | check?, enabledCondition? }`, `Cost = time | credits | items | probabilistic`
-- [ ] Загрузка колод из YAML + zod-валидация; стартовые колоды: Bordertown Life (локация), Life/Survival, Down to Work; DMM — заглушка (GDD §13). **Стартовый контент**: placeholder-YAML уже в `content/decks/`; финальный список карт предоставит пользователь
-- [ ] `hand.ts`: раздача N карт в руку. **Механика руки (решено 2026-09-20, закрывает GDD §13):** исполнение или сброс карты возвращает её в колоду, её слот в руке пустует; клик по баннеру колоды (или «Refresh» слева) — добор заполняет пустые слоты, каждый добранный карт тратит AP (`drawApCostPerCard` из balance.yaml); полный reshuffle + новая раздача при новом дне. **Размер руки = базовый статус с TTL-модификаторами** (world-store уже хранит `handSizeBase`/`handSizeModifiers`; уведомления «increased/dropped» — UI)
-- [ ] Daily-карты: гарантированная выдача раз в день вне колоды
-- [ ] `StoryView` — финальный вид: баннеры колод + рука (4 слота, пустые слоты видны) + сетка статичных действий локации из YAML
-- [ ] `CardWindow.tsx`: flavor, системная заметка о частоте, бейджи CARD REQUIREMENTS, кнопки DISCARD/CLOSE; список действий с verb, стоимостью (иконки −N/+N), `[ Success: N% ]` или раскладка в тултипе; недоступные действия — серые `[ Verb ]` + превью затрат
-- [ ] Требования карты к миру (NPC/статусы) как условия появления
+- [x] Типы: `Card { id, title, flavor, deckId, requirements?, daily?, actions[] }`, `Action { verb, cost?: Cost, successChance? | check?, enabledCondition? }`, `Cost = time | credits | items | probabilistic` (`src/cards/types.ts`, zod-схемы)
+- [x] Загрузка колод из YAML + zod-валидация; стартовые колоды: Bordertown Life (локация), Life/Survival, Down to Work; DMM — заглушка (GDD §13). **Стартовый контент**: placeholder-YAML в `content/decks/` (+ daily-карта «The daily feed»); финальный список карт предоставит пользователь. Локации: `content/locations/*.yaml`, загрузка через `src/cards/starter-content.ts`
+- [x] `hand.ts`: раздача N карт в руку. **Механика руки (решено 2026-09-20, закрывает GDD §13):** исполнение или сброс карты возвращает её в колоду, её слот в руке пустует; клик по баннеру колоды (или «Refresh» слева) — добор заполняет пустые слоты, каждый добранный карт тратит AP (`drawApCostPerCard` из balance.yaml); полный reshuffle + новая раздача при новом дне. **Размер руки = базовый статус с TTL-модификаторами** (world-store хранит `handSizeBase`/`handSizeModifiers`; уведомления «increased/dropped» — UI, закрывается кликом)
+- [x] Daily-карты: гарантированная выдача раз в день вне колоды (первый слот; флаг `dailyDealtToday`)
+- [x] `StoryView` — финальный вид: баннеры колод + рука (4 слота, пустые слоты видны) + сетка статичных действий локации из YAML
+- [x] `CardWindow.tsx`: flavor, системная заметка о частоте, бейджи CARD REQUIREMENTS, кнопки DISCARD/CLOSE; список действий с verb, стоимостью (−N AP · +Nh), `[ Success: N% ]`; недоступные действия — серые
+- [x] Требования карты к миру (NPC/статусы) как условия появления (missing-статусы подсвечиваются, действие блокируется)
 
-**Acceptance:** из YAML-колод раздаётся рука, размер руки меняется по TTL с уведомлениями, daily-карта появляется раз в день, окно карточки полностью соответствует GDD §4.
+**Acceptance:** из YAML-колод раздаётся рука ✅, размер руки меняется по TTL с уведомлениями ✅ (`addHandSizeModifier` + notice в world-store), daily-карта появляется раз в день ✅, окно карточки соответствует GDD §4 ✅. Unit-тесты: `tests/cards.test.ts` (21 тест).
 
-## Phase 5 — Движок действий и исходов (неделя 5–6)
+## Phase 5 — Движок действий и исходов (неделя 5–6) 🚧
 
 Цель: нажатие кнопки даёт честный результат по GDD §5.
 
-- [ ] `checks.ts`: success chance = f(base, skills, moods, equipment bonuses) — формула прозрачная и тестируемая; раскладка компонентов для тултипа
-- [ ] Бросок → вердикт (bad / okay / good) по порогам
-- [ ] Применение результата: `Effect[]` из карточки (варианты на исход) через effects-applier + трата стоимости (время/кредиты/предметы, вероятностное потребление)
+**Текущее состояние (задел):** исполнение действия уже работает без броска — `CardWindow.perform` тратит стоимость (`world.spend({apCost, timeCostHours}, effects)` + `spendCredits`) и возвращает карту в колоду; `successChance` хранится как плоский % в данных карты (`src/cards/types.ts`, отображается как `[ Success: N% ]`); гейтинг по AP/кредитам/dayOver уже есть. Осталось: бросок, пороги вердикта и варианты эффектов на исход.
+
+- [ ] `checks.ts`: success chance = f(base, skills, moods/equipment bonuses) — формула прозрачная и тестируемая; раскладка компонентов для тултипа (пока шанс берётся плоским из данных карты)
+- [ ] Бросок → вердикт (bad / okay / good) по порогам (пороги — в `content/balance.yaml`)
+- [x] Применение результата: трата стоимости (AP/время/кредиты) + `Effect[]` из карточки через `world.spend` ✅; осталось: варианты эффектов на исход, вероятностное потребление предметов
 - [ ] Экран результата: вердикт-заголовок, нарратив по исходу, сетка `StatusTile` изменений (используя компонент из Phase 2), кнопка forward
 - [ ] Навык растёт за попытку независимо от исхода; цена успеха (moods/penalty) — из данных карточки
 
@@ -117,7 +128,7 @@ cyberdyansk/
 
 ## Phase 6 — Цикл дня/ночи (неделя 7)
 
-Цель: GDD §6.
+Цель: GDD §6. Задел уже есть: флаг `dayOver` в world-store ставится при исчерпании AP, UI гейтится по нему (действия карт/локации блокируются с подсказкой «The day is over»), `world-store.newDay()` и `card-store.reshuffleForNewDay()` готовы (сброс AP/часов, expired-TTL hand-size, reshuffle + новая раздача).
 
 - [ ] Исчерпание AP → окно «Another day/Another night»: `Move`, `Do it | 3` (отсрочка на реальные 30 мин, один раз в день), `Deep` (заглушка до ответа по GDD §13)
 - [ ] Сводка дня: экран тайлов всех изменений за сессию («The right side of longing») — тот же `StatusTile`, данные из журнала эффектов store (`dayChanges`)

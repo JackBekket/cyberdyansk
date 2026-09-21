@@ -99,6 +99,6 @@ export function returnCardToDeck(state: HandState, card: Card): void {
 }
 
 /** Индекс первого пустого слота; -1 — рука полна. */
-export function firstEmptySlot(slots: readonly Array<Card | null>): number {
+export function firstEmptySlot(slots: ReadonlyArray<Card | null>): number {
   return slots.indexOf(null);
 }

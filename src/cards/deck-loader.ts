@@ -2,7 +2,7 @@
 // Контент отдельно от кода: строки YAML приходят извне (Vite ?raw в приложении, fs/строка в тестах).
 
 import { parse as parseYaml } from 'yaml';
-import type { DeckBase, LocationContent } from './types';
+import type { LocationContent } from './types';
 import { CardSchema, DeckSchema, LocationSchema, withDeckIds } from './types';
 
 /** Ошибка парсинга контента с указанием файла — показывается в UI при отладке. */

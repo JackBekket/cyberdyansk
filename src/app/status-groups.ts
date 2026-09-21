@@ -18,7 +18,8 @@ export const CHARACTER_SECTIONS: StatusSection[] = [
 
 /** Все статусы мира, сгруппированные по секциям Character; «Character/Body» — всё остальное. */
 export function groupStatusesForCharacter(values: StatusValues): Array<{ title: string; names: string[] }> {
-  const sections = CHARACTER_SECTIONS.map((s) => ({ title: s.title, names: [] as string[] }));
+  // categories сохраняем в рабочем массиве — по ним ищем секцию для каждого статуса.
+  const sections = CHARACTER_SECTIONS.map((s) => ({ title: s.title, categories: s.categories, names: [] as string[] }));
   const other: { title: string; names: string[] } = { title: 'Character / Body', names: [] };
 
   for (const name of Object.keys(values).sort()) {

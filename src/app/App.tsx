@@ -7,6 +7,8 @@ import { useWorldStore } from '../core/world-store';
 import type { WorldSnapshot } from '../core/world-store';
 import { loadWorld, saveWorld } from '../core/persistence';
 import type { PersistedWorld } from '../core/persistence';
+import { useCardStore } from '../cards/card-store';
+import { loadStarterDecks } from '../cards/starter-content';
 import { Shell } from './Shell';
 import { CharacterCreation } from './CharacterCreation';
 
@@ -18,12 +20,16 @@ function hasStarted(world: WorldSnapshot): boolean {
 export function App() {
   const [started, setStarted] = useState<boolean>(() => hasStarted(useWorldStore.getState()));
 
-  // При загрузке приложения читаем сохранение и восстанавливаем мир.
+  // При загрузке приложения читаем сохранение и восстанавливаем мир (включая руку).
   useEffect(() => {
     if (hasStarted(useWorldStore.getState())) return;
     const saved: PersistedWorld | null = loadWorld();
     if (saved) {
-      useWorldStore.setState({ ...saved });
+      useWorldStore.setState({ ...pickSnapshot(saved), location: saved.location, dayChanges: saved.dayChanges });
+      // Рука: восстанавливаем сохранённое состояние или раздаём заново из стартовых колод.
+      const decks = loadStarterDecks();
+      if (saved.handState) useCardStore.setState({ decks, handState: saved.handState });
+      else useCardStore.getState().initDecks(decks);
       setStarted(true);
     }
   }, []);
@@ -36,15 +42,20 @@ export function App() {
         ...pickSnapshot(state),
         location: state.location,
         dayChanges: state.dayChanges,
+        handState: useCardStore.getState().handState, // рука переживает перезагрузку (Phase 4)
       };
       saveWorld(persisted);
     });
   }, []);
 
-  // Переход из создания персонажа в игру. Подписка на появление Character/* в мире.
+  // Переход из создания персонажа в игру. Подписка на появление Character/* в мире;
+  // раздаём стартовую руку из колод YAML (GDD §4).
   useEffect(() => {
     return useWorldStore.subscribe((state) => {
-      if (hasStarted(state)) setStarted(true);
+      if (!hasStarted(state)) return;
+      setStarted(true);
+      const card = useCardStore.getState();
+      if (card.handState === null) card.initDecks(loadStarterDecks()); // идемпотентно: уже раздавали — ничего не делаем
     });
   }, []);
 
@@ -52,8 +63,8 @@ export function App() {
   return <Shell />;
 }
 
-/** Вытаскиваем сериализуемое ядро мира из состояния store. */
-function pickSnapshot(s: ReturnType<typeof useWorldStore.getState>): WorldSnapshot {
+/** Вытаскиваем сериализуемое ядро мира из состояния store (или сохранённого PersistedWorld). */
+function pickSnapshot(s: WorldSnapshot): WorldSnapshot {
   return {
     dayNumber: s.dayNumber,
     apLeft: s.apLeft,

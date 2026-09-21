@@ -1,7 +1,7 @@
 // Unit-тесты world store (PLAN Phase 1). Ключевой acceptance:
 // «сделать действие → AP упало, часы сдвинулись, эффекты применились» — без UI.
 import { describe, expect, it } from 'vitest';
-import { createWorldStore, canPickUpItem, canReloadOrSwapEquipment, currentHandSize, valuesWithDerived } from '../core/world-store';
+import { createWorldStore, canPickUpItem, canReloadOrSwapEquipment, currentHandSize, valuesWithDerived } from '../src/core/world-store';
 
 describe('world store — базовое состояние', () => {
   it('стартовый мир: AP = 50/день, часы 08:00 (GDD §2)', () => {
