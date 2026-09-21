@@ -2,8 +2,6 @@
 
 Поэтапный план разработки форка. GDD: `GAME_DESIGN.md`. Стек: **React + TypeScript** (UI-слой), Electron — оболочка на позднем этапе (Phase 8).
 
-**Текущий статус (2026-09-21):** Phase 1–4 ✅ завершены; **актуальная фаза — Phase 5** 🚧 (исполнение действий работает без броска: трата стоимости + эффекты, `successChance` — плоский % из данных карты). В Phase 6 уже заложены заделы: флаг `dayOver` с гейтингом UI, `world-store.newDay()`, `card-store.reshuffleForNewDay()`. Тесты: 45 unit-тестов (`tests/world-store.test.ts`, `effect.test.ts`, `time-engine.test.ts`, `cards.test.ts`).
-
 ---
 
 ## 0. Стек и инструменты
