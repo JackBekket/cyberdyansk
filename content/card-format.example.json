@@ -1,0 +1,472 @@
+{
+  "$comment": "Пример контент-формата (JSON) для колод, карт и pinned-ряда. Основан на задокументированных кадрах: CARDS.md + CARD_DESIGN.md. Расширяет существующую DeckSchema из src/cards/types.ts (добавлены: badges, requirements со значениями, costs-иконки, successChance-компоненты, outcome — экран результата). В репозитории контент живёт в YAML; этот файл — эталон структуры.",
+
+  "decks": [
+    {
+      "deckId": "bordertown-life",
+      "title": "Bordertown Life",
+      "kind": "location",
+      "locationId": "cinci-bordertown",
+      "cards": [
+        {
+          "_пример": "Окно с CARD REQUIREMENTS + результат без комикс-полосы + предметный тайл (RAM)",
+          "id": "something-to-sell",
+          "title": "Something to sell",
+          "art": "art/cards/something-to-sell.png",
+          "flavor": "You've got an anti-static bag sewn into the lining of your coat. Two sticks of RAM, a fair few gigs each. Another kind of currency, safer to carry across the badlands than bank notes. Maybe it's time to cash them in? Although you're pretty sure you could get more if you wait until you're into the city. Always choices to make...",
+          "kind": "trade",
+          "badges": ["just-once"],
+          "requirements": [
+            { "statusName": "Familiar/Cinci bordertown", "op": "=", "value": 2 }
+          ],
+          "actions": [
+            {
+              "actionId": "antiques",
+              "name": "Antiques?",
+              "art": "art/actions/antiques-question-mark.png",
+              "description": "The funny thing is that these could easily be 50 years old, and they're still in demand. It's not because they're antiques that they're valuable. Modern apps are hungry for more memory than ever, but silicon's hard to come by on the streets.",
+              "verb": "Do It",
+              "onceOnly": true,
+              "costs": [],
+              "timeCostBadge": null,
+              "successChance": null,
+              "outcome": {
+                "title": "I'm still your memory.",
+                "verdict": null,
+                "comicStrip": [],
+                "narrative": {
+                  "left": "So people use whatever they can get. Modern motherboards are designed to take any stick from the turn of the century onwards. It's a different story if you're corporate, of course.",
+                  "right": "Hit the market if you want to sell these.",
+                  "rightStyle": "system-note",
+                  "closingLine": null
+                },
+                "tiles": [
+                  { "type": "status-increased", "statusName": "Familiar/Cinci bordertown", "value": 3, "was": 2 },
+                  { "type": "item-gained", "name": "RAM", "amount": 2, "newTotal": 2, "categoryColor": "red" }
+                ],
+                "flavorIcons": []
+              }
+            }
+          ]
+        },
+
+        {
+          "_пример": "Эволюционирующая карта: набор действий меняется с прогрессом; у действия требование к статусу (REQUIREMENT MET)",
+          "id": "exploring-the-town",
+          "title": "Exploring the town",
+          "art": "art/cards/exploring-dust.png",
+          "flavor": "Dust everywhere. Bigger than at first glance.",
+          "systemNote": "Your first priority should be raising your familiarity",
+          "kind": "exploration",
+          "badges": [],
+          "requirements": [],
+          "actions": [
+            {
+              "actionId": "walk-the-streets",
+              "name": "Walk the streets",
+              "art": "art/actions/dust-on-boots.png",
+              "description": "Things to learn. More dust on your boots.",
+              "verb": "Walk",
+              "onceOnly": true,
+              "costs": [],
+              "timeCostBadge": null,
+              "successChance": null,
+              "requirements": [],
+              "outcome": {
+                "title": "Altitude.",
+                "verdict": null,
+                "comicStrip": [
+                  "art/strip/alley-graffiti.png",
+                  "art/strip/man-blood-shirt.png",
+                  "art/strip/local-implant-eye.png"
+                ],
+                "narrative": {
+                  "left": "The town is more badlands than city. Intertsticial, temporary, halfway between. Built from needs. The rentacops, the security firms, they don't come out here. Anything goes, anything can happen. But not everything does. Everyone here is here because they can't get in. The town serves needs, and needs are profits; rough, hard earned profits. A certain camaraderie.",
+                  "right": null,
+                  "rightStyle": null,
+                  "closingLine": null
+                },
+                "tiles": [
+                  { "type": "status-first", "statusName": "Familiar/Cinci bordertown", "value": 1, "note": "(you're new here.)" },
+                  { "type": "knowledge-gained", "name": "Rumour/Cinci Bordertown", "amount": 1, "newTotal": 7 }
+                ]
+              }
+            },
+            {
+              "actionId": "going-further",
+              "name": "Going further",
+              "art": "art/actions/dust-on-boots.png",
+              "description": "You've scratched the surface of this dump, but there's more to learn.",
+              "verb": "Walk",
+              "onceOnly": true,
+              "costs": [],
+              "timeCostBadge": null,
+              "successChance": null,
+              "requirements": [
+                {
+                  "statusName": "Familiar/Cinci bordertown",
+                  "op": "=",
+                  "value": 1,
+                  "note": "(you're new here.)",
+                  "flavorTooltip": "Rough if you don't know it. Rough if you do."
+                }
+              ],
+              "outcome": {
+                "title": "Snake hips.",
+                "verdict": null,
+                "comicStrip": [
+                  "art/strip/alley-graffiti.png",
+                  "art/strip/man-stairs-light.png",
+                  "art/strip/local-implant-eye.png"
+                ],
+                "narrative": {
+                  "left": "You walk further. Deeper, but not too deep. Some of this place is dangerous, but none of it's as dangerous as it appears. First glances. Impressions. People keep to themselves. No gang territory, and the organisations out here like the place because they want to stay hidden.",
+                  "right": "Yes... at first you thought that everyone was just waiting to get in, or unable, but it doesn't really work that way. There are people out here working a profit. People filtering in and out of the city, coming and going. People living out here for a reason. Hiding. Plotting. Businesses not well suited to legal oversight...",
+                  "rightStyle": "narrative",
+                  "closingLine": null
+                },
+                "tiles": [
+                  { "type": "status-increased", "statusName": "Familiar/Cinci bordertown", "value": 2, "was": 1 },
+                  { "type": "knowledge-gained", "name": "Rumour/Cinci Bordertown", "amount": 1, "newTotal": 8 }
+                ]
+              }
+            }
+          ]
+        },
+
+        {
+          "_пример": "Комикс-полоса на 5 панелей + двухколоночный диалог (обе колонки) + строка вне колонок",
+          "id": "lucky-bullet",
+          "title": "Lucky bullet",
+          "art": "art/cards/lucky-bullet-9mm.png",
+          "flavor": "There are a few peeps kicking around the guard post, just killing time. Waiting their turn. Even if you've got a pass, you still gotta queue.",
+          "kind": "npc-meeting",
+          "badges": [],
+          "requirements": [],
+          "actions": [
+            {
+              "actionId": "join-them",
+              "name": "Join them",
+              "art": "art/actions/boots.png",
+              "description": "One of the guys is handling an old Sig Sauer 226, showing it off. Might be old, but it's been so well kept it looks brand new.",
+              "verb": null,
+              "onceOnly": false,
+              "costs": [],
+              "timeCostBadge": null,
+              "successChance": null,
+              "outcome": {
+                "title": "The heavens are full of lead",
+                "verdict": null,
+                "comicStrip": [
+                  "art/strip/guard-post-group.png",
+                  "art/strip/bald-man-gun-up.png",
+                  "art/strip/woman-gold-chain.png",
+                  "art/strip/hand-open-magazine.png",
+                  "art/strip/round-flipped-air.png"
+                ],
+                "narrative": {
+                  "left": "\"Yeah, the turn of the century was a golden age for guns, especially handguns. Or even earlier, you get designs two centuries old still in use today. I mean, just look at this thing. Once you perfect the basic design, there's just not a lot of improvement to be made. And they made so many of 'em, the country was gun-nuts back then! That's why you see so many of these things kicking around.\"",
+                  "right": "\"I mean, sure, there are plenty of new designs around, but if you can pick up an old Sig or Colt cheap, why bother? They've stood the test of time. Won't let you down.\" He seems to be listening in. \"Hey, new round here, right? Have this, it'll bring you luck.\"",
+                  "rightStyle": "dialogue",
+                  "closingLine": "He flips you a round, and laughs. A single round. 9mm."
+                },
+                "tiles": [
+                  { "type": "status-first", "statusName": "Enthusiasm", "value": 1 }
+                ]
+              }
+            }
+          ]
+        },
+
+        {
+          "_пример": "Карта-решение: несколько взаимоисключающих действий с разными кнопками/артами",
+          "id": "the-last-thread",
+          "title": "The last thread",
+          "art": "art/cards/folded-scrap.png",
+          "flavor": "Your last connection with what came before. Your training for this mission. Your instructions. Your entire life. They've all been set to fade, like a dream, until they were needed. Triggered memory blocks, carefully constructed.\n\nBut in your pocket, just a scrap of paper: Martha. Your handwriting. That's all it says.",
+          "kind": "decision",
+          "badges": [],
+          "requirements": [],
+          "actions": [
+            {
+              "actionId": "burn-it",
+              "name": "Burn it",
+              "art": "art/actions/flame.png",
+              "description": "You're guessing that you wanted this to be the one thing you didn't forget. But you've forgotten. So there's only one thing to do.",
+              "verb": "Click",
+              "onceOnly": true,
+              "costs": [],
+              "timeCostBadge": null,
+              "successChance": null,
+              "outcome": { "_note": "не зафиксирован кадром" }
+            },
+            {
+              "actionId": "keep-it",
+              "name": "Keep it",
+              "art": "art/actions/fist.png",
+              "description": "Your instinct is to set this thing alight. You shouldn't really have it in the first place. It's too risky. Too dangerous. But you can't let go of this one, last thread.",
+              "verb": "Stash",
+              "onceOnly": true,
+              "costs": [],
+              "timeCostBadge": null,
+              "successChance": null,
+              "outcome": {
+                "title": "Ready? Then wake up.",
+                "verdict": null,
+                "comicStrip": [
+                  "art/strip/promzone-slums.png",
+                  "art/strip/hand-scrap-martha-red.png",
+                  "art/strip/gloved-hand-pocket.png"
+                ],
+                "narrative": {
+                  "left": "You fold it up tight and slide it back into your pocket, pushing it deep. Your hand brushes against something else in there. At least my masters didn't send me completely unprepared.",
+                  "right": null,
+                  "rightStyle": null,
+                  "closingLine": null
+                },
+                "tiles": [
+                  { "type": "item-gained", "name": "Naïve shot", "amount": 1, "newTotal": 1, "categoryColor": "red" }
+                ]
+              }
+            }
+          ]
+        },
+
+        {
+          "_пример": "Daily-карта: гарантированно раз в день вне зависимости от колоды (GDD §4)",
+          "id": "the-daily-feed",
+          "title": "The daily feed",
+          "flavor": "You'll see this card once per day, every day, no matter what.",
+          "kind": "daily",
+          "daily": true,
+          "badges": ["daily"],
+          "requirements": [],
+          "actions": [
+            {
+              "actionId": "skim-it",
+              "name": "Skim it",
+              "verb": "Skim it",
+              "onceOnly": false,
+              "costs": [{ "kind": "ap", "amount": 1 }],
+              "timeCostBadge": null,
+              "successChance": null,
+              "outcome": { "_note": "не зафиксирован кадром" }
+            }
+          ]
+        }
+      ]
+    },
+
+    {
+      "deckId": "down-to-work",
+      "title": "Down to Work",
+      "kind": "work",
+      "cards": []
+    },
+
+    {
+      "deckId": "life-survival",
+      "title": "Life/Survival",
+      "kind": "survival",
+      "cards": []
+    }
+  ],
+
+  "_пример-pinned-ряда": "Pinned-ряд принадлежит локации (content/locations/cinci-bordertown.yaml), а не колоде. Ряд расширяется с прогрессом; новые сервисные точки вставляются ПЕРЕД 'bordertown-bar'.",
+  "pinnedRow": {
+    "locationId": "cinci-bordertown",
+    "insertRule": "before:bordertown-bar",
+    "order": [
+      "getting-into-the-city",
+      "back-to-the-border-post",
+      "the-border-market",
+      "the-good-doctor",
+      "bordertown-bar"
+    ],
+    "cards": [
+      {
+        "_пример": "Сервисная точка с временной стоимостью (Listen | 1), плоским success chance и превью наград; задокументирован неудачный исход",
+        "id": "the-border-market",
+        "title": "The border market",
+        "kind": "pinned-service",
+        "unlocksAt": { "statusName": "Familiar/Cinci bordertown", "op": ">=", "value": 1 },
+        "flavor": "There's a community of sorts, clustered near the border post. Serving people who can't get in. Serving people leaving. People buying. People selling.\n\nThere's always a weird load of stuff floating around. Old junk off blankets in the dust. Baskets of old coins, watches, loaded over by women with weathered faces… but just sometimes, you spot something useful.",
+        "systemNote": "You won't need a lot of this stuff until you've been through the border and come back again.",
+        "actions": [
+          {
+            "actionId": "rumours-and-idle-chatter",
+            "name": "Rumours and idle chatter",
+            "art": "art/actions/ear.png",
+            "description": "There's always a few people drifting around here. Buying, selling. Just wandering. People who work here, scrape out some kind of life. Cock an ear and you might find out something interesting.",
+            "verb": "Listen",
+            "onceOnly": false,
+            "costs": [],
+            "timeCostBadge": 1,
+            "rewardPreview": [{ "kind": "knowledge", "icon": "rumour", "amount": 2 }],
+            "successChance": { "flatPct": 7 },
+            "outcomeSuccess": {
+              "_note": "успех: тайл Rumour (кросс-чек по счётчикам в CARDS.md)"
+            },
+            "outcomeFail": {
+              "title": "The eyes can't see when the mind is blind.",
+              "verdict": { "label": "You did bad" },
+              "comicStrip": [],
+              "narrative": {
+                "left": "There's not much going on. Too hot, too dry. No one's in the mood to talk. Or maybe they just saw you coming.",
+                "right": null,
+                "rightStyle": null,
+                "closingLine": null
+              },
+              "tiles": [
+                { "type": "status-first", "statusName": "Skill/Observation", "value": 2 },
+                { "type": "flavor-only", "text": "Sweeping out after a long day. Life goes on." },
+                { "type": "flavor-only", "text": "Out there. Somewhere." }
+              ],
+              "flavorIcons": ["icon1", "icon2", "icon3"]
+            }
+          },
+          {
+            "_пример": "Недоступное действие: серая [ Sell ] + превью наград под кнопкой (недоступно новому персонажу)",
+            "actionId": "chop-shop-sell",
+            "name": "The chop shop",
+            "art": "art/actions/chop-shop.png",
+            "description": "Corrugated iron and old foamed steel, an old ethanol generator powering the rigs. They'll take parts. Bits of old engines. Piping. That kind of thing.",
+            "verb": "Sell",
+            "onceOnly": false,
+            "costs": [],
+            "timeCostBadge": null,
+            "rewardPreview": [{ "kind": "ohioDollars", "icon": "dollar",  "amount": 10 }],
+            "requirements": [
+              { "statusName": "Ohio Dollars", "op": ">=", "value": 1 }
+            ],
+            "outcome": { "_note": "не зафиксирован кадром" }
+          },
+          {
+            "actionId": "junk-dealer-sell",
+            "name": "The junk dealer",
+            "art": "art/actions/awning-tent.png",
+            "description": "A guy at the back, dirtier and dustier than most. A large awning, uneven poles holding it up. Desert style.",
+            "verb": "Sell",
+            "onceOnly": false,
+            "costs": [],
+            "timeCostBadge": null,
+            "rewardPreview": [{ "_note": "текст на кадре обрезан снизу" }],
+            "outcome": { "_note": "не зафиксирован кадром" }
+          }
+        ]
+      },
+
+      {
+        "id": "the-good-doctor",
+        "title": "The good doctor",
+        "kind": "pinned-service",
+        "unlocksAt": { "statusName": "Familiar/Cinci bordertown", "op": ">=", "value": 2 },
+        "flavor": "Or Dr Feelgood, if you prefer. Pharmaceuticals. Nanites. Things you need to get by.",
+        "actions": [
+          {
+            "actionId": "test-blisters",
+            "name": "What's in these things?",
+            "art": "art/actions/medical-scanner.png",
+            "description": "You show the doctor a battered strip of blisters you found. \"Sure, I'll check them out for you. I'll have to break one open though, and it'll cost you a dollar.\"",
+            "verb": "Test",
+            "onceOnly": false,
+            "costs": [{ "kind": "ohioDollars", "icon": "dollar", "amount": -1 }],
+            "timeCostBadge": null,
+            "rewardPreview": [{ "kind": "unknown", "icon": "?",  "amount": 7 }],
+            "outcome": { "_note": "не зафиксирован кадром" }
+          },
+          {
+            "actionId": "buy-nanites",
+            "name": "Buy some nanites",
+            "art": "art/actions/nanite-container.png",
+            "description": "He's got good quality ones somewhere. You could persuade him to part with them. Charm. Plus cash. Or just settle for what he's got out front.",
+            "verb": "Grey market",
+            "onceOnly": false,
+            "costs": [],
+            "timeCostBadge": null,
+            "rewardPreview": [{ "kind": "unknown", "icon": "?",  "amount": 29 }],
+            "outcome": { "_note": "не зафиксирован кадром" }
+          },
+          {
+            "actionId": "buy-plasma-packs",
+            "name": "Buy some plasma packs",
+            "art": "art/actions/plasma-bag.png",
+            "description": "They're not hard to get, and he's got some boxes out back. You've seen them.\n\nTwo packs.",
+            "verb": "Do It",
+            "onceOnly": false,
+            "costs": [],
+            "timeCostBadge": null,
+            "rewardPreview": [{ "kind": "unknown", "icon": "?",  "amount": 158 }],
+            "outcome": { "_note": "не зафиксирован кадром" }
+          }
+        ]
+      },
+
+      {
+        "id": "getting-into-the-city",
+        "title": "Getting into the city",
+        "kind": "pinned-basic",
+        "unlocksAt": null,
+        "actions": []
+      },
+
+      {
+        "id": "back-to-the-border-post",
+        "title": "Back to the border post",
+        "kind": "pinned-basic",
+        "unlocksAt": null,
+        "actions": []
+      },
+
+      {
+        "id": "bordertown-bar",
+        "title": "Bordertown bar",
+        "kind": "pinned-service",
+        "unlocksAt": null,
+        "flavor": "You've tried a few places. Enough to know which'll serve something that's just rough rather than something that'll kill you… You've been around here long enough.",
+        "actions": [
+          {
+            "actionId": "talk",
+            "name": "Got something to talk about",
+            "verb": "Talk",
+            "onceOnly": false,
+            "costs": [],
+            "timeCostBadge": null,
+            "systemNote": "The time of day might move on a little while you're here.",
+            "description": "No one's going to care if you don't buy a drink if you've got a story worth sharing.",
+            "rewardPreview": [{ "kind": "unknown", "icon": "hand" }, { "kind": "npc", "icon": "face" }],
+            "outcome": { "_note": "не зафиксирован кадром" }
+          },
+          {
+            "actionId": "buy-beers",
+            "name": "Buy some beers",
+            "verb": "Buy",
+            "onceOnly": false,
+            "costs": [{ "kind": "ohioDollars", "icon": "crate", "amount": -1 }],
+            "timeCostBadge": null,
+            "description": "Seems like you need a few bottles to take away with you. He's probably got some under the bar.",
+            "rewardPreview": [
+              { "kind": "item", "icon": "hand",  "amount": 4 },
+              { "kind": "item", "icon": "bottle",  "amount": 15 }
+            ],
+            "outcome": { "_note": "не зафиксирован кадром" }
+          },
+          {
+            "actionId": "buy-jerk",
+            "name": "Buy some jerk",
+            "verb": "Buy",
+            "onceOnly": false,
+            "costs": [{ "kind": "ohioDollars", "icon": "hand", "amount": -1 }],
+            "timeCostBadge": null,
+            "description": "You know the guy, right? This stuff is safe, even if it tastes like a combination of fish food and boot leather.",
+            "rewardPreview": [
+              { "kind": "item", "icon": "meat",  "amount": 7 },
+              { "kind": "item", "icon": "box",  "amount": 4 }
+            ],
+            "outcome": { "_note": "не зафиксирован кадром" }
+          }
+        ]
+      }
+    ]
+  }
+}

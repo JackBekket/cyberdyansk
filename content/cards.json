@@ -1,0 +1,761 @@
+{
+  "meta": {
+    "description": "Каноничный реестр всех задокументированных карт Cyberdyansk (перенос из CARDS.md / CARD_DESIGN.md). Источники: story-кадры игры (персонаж zer0 ex, локация Cinci Bordertown) + онбординг. Дальнейшая работа ведётся по этому файлу; MD остаётся исходником наблюдений.",
+    "conventions": {
+      "text": "Игровые строки (flavor, описания действий, нарратив, тайлы) — дословно как на кадрах, включая опечатки игры («Intertsticial»).",
+      "notes/ru": "Поля notes / artDescription / panel — мои аннотации на русском, не игровые строки.",
+      "badges": {
+        "just-once": "синяя плашка одноразового действия",
+        "daily": "daily-карта: гарантированно раз в день вне зависимости от колоды",
+        "careful-no-undo": "красный бейдж «Be very careful. No undo.»"
+      },
+      "verbSquareBrackets": "[ Глагол ] — серая недоступная кнопка с превью иконок затрат/наград под ней",
+      "requirementMet": "зелёный бейдж выполненного требования: тултип «You need exactly N (…) – You have M(…)»",
+      "tileKinds": {
+        "status-first": "«You now have Y at N» — первый набор статуса (Skill/Observation, Familiar, Enthusiasm)",
+        "status-increased": "«… has increased to N (was M)» — рост существующего статуса",
+        "knowledge-gained": "коллекционируемые счётчики знаний: Rumour/Cinci Bordertown, Hard fact/Cinci Bordertown; категории с редкостью выделены красным",
+        "item-gained": "«You've gained N item (new total M)» — предмет/ресурс (RAM, Naïve shot)",
+        "flavor-only": "флейвор-тайл без чисел"
+      }
+    },
+    "mechanics": {
+      "ap": "AP расходуются на добор карт из колоды и иногда на отдельные действия; большинство опций в карточках бесплатны (туториал: «One draw costs one action. Playing an option on a card does not cost an action.»). Счётчик может временно расти выше лимита (кадры: 56/50) — вероятно, binge-режим: на час реального времени делает AP бесконечными и увеличивает размер руки; разблокируется за credits или бесплатно раз в неделю (первый раз всегда), GDD §3.",
+      "apTimer": "Таймер HH:MM рядом со счётчиком AP — таймер восстановления: по истечении +1 AP. Появляется при AP ниже номинала (кросс-чек: 49/50 | 09:53).",
+      "handSize": "Размер руки — изменяемый статус с TTL («HAND SIZE TEMPORARILY INCREASED» → «Your hand size has dropped / Couldn't keep this rate up forever»); также увеличивается binge-режимом (GDD §3).",
+      "draws": "Колоды динамические и взвешенные: некоторые карты «almost guaranteed to appear regularly», другие редкие; число/тип карт меняется с прогрессом. Пока игроку не попасть в город, колода одна — Borderland life.",
+      "handRefresh": "После clear hand рука мгновенно добирается заново; свежие карты показываются рубашкой (царапанный паттерн) до первого открытия.",
+      "cardWindowHeader": "CLOSE × обязательный; DISCARD опционален; CARD REQUIREMENTS — опциональная панель бейджей-условий в шапке (первый инстанс: «Something to sell»).",
+      "resultScreen": "Полноэкранный пагинируемый экран (кнопка » forward): мини-шапка карты → блок действия → [комикс-полоса 3–5 панелей, опционально] → двухколоночный нарратив (правая колонка: системная заметка / диалог / пуста; возможна строка вне колонок) → вердикт при броске (You did bad / You did good; частичный успех возможен) → заголовок результата (стиль: каламбур, «фраза//фраза», вопрос+императив, притчевая афористичная фраза) → сетка тайлов. Честная асимметрия: при неудаче растёт навык."
+    }
+  },
+
+  "decks": [
+    {
+      "deckId": "dmm",
+      "title": "DMM",
+      "kind": "unknown",
+      "notes": "Состав не выявлен (открытый вопрос, GDD §14).",
+      "cards": []
+    },
+
+    {
+      "deckId": "bordertown-life",
+      "title": "Bordertown Life",
+      "kind": "location",
+      "locationId": "cinci-bordertown",
+      "notes": "Колода текущей локации: бытовые/локальные события, наблюдение, NPC-встречи. Единственная колода до первого входа в город.",
+      "cards": [
+
+        {
+          "id": "deck-clicked",
+          "title": "Deck clicked",
+          "kind": "deck-banner",
+          "artDescription": "баннерный тайл со стрелкой; во время онбординга тот же слот занимал красный туториал-баннер «CLICK ME»",
+          "flavor": ["You've clicked on a deck for the first time."],
+          "notes": "Баннерный тайл = сама колода: клик по нему = добор карт. Первый клик у нового персонажа открывает это окно.",
+          "actions": [
+            {
+              "actionId": "a-few-notes",
+              "name": "A few notes",
+              "description": ["This is a tutorial about how decks work. Although it no longer says CLICK ME, you can still draw from it."],
+              "systemNoteItalic": "Tutorial.",
+              "verb": null,
+              "notes": "Открывает полноэкранную страницу «Helix override.»",
+              "outcomePage": {
+                "title": "Helix override.",
+                "structure": "полноэкранная страница: аннотированный скриншот UI с красными подписями (DECKS → баннерный тайл, HAND → рука, PINNED CARDS → ряд под рукой) + двухколоночное объяснение (динамические колоды; взвешенный добор; pinned-карты)",
+                "tiles": [
+                  { "kind": "knowledge-gained", "name": "Rumour/Cinci Bordertown", "amount": 1, "newTotal": 1, "text": "You've gained 1 Rumour/Cinci Bordertown (new total 1)" }
+                ],
+                "notes": "Даже туториал даёт слух через стандартный формат отчётности. В этом кадре тайлы руки — со «сколотым» паттерном без названий; тот же паттерн на обычном story-экране после добора → свежие карты показываются рубашкой до первого открытия."
+              }
+            }
+          ]
+        },
+
+        {
+          "id": "buried-in-ash",
+          "title": "Buried in ash",
+          "kind": "observation",
+          "artDescription": "костёр",
+          "flavorComplete": false,
+          "flavor": ["…hundreds of people coming and going… stuff left behind…"],
+          "windowHeader": { "buttons": ["CLOSE ×"], "notes": "минимальная форма окна: без DISCARD, без курсивной заметки, без success chance" },
+          "actions": [
+            {
+              "actionId": "picking-it-out",
+              "name": "Picking it out",
+              "artDescription": "кольцо-череп",
+              "description": ["You pour a little water onto it, until it stops hissing. It might not be your usual style, but you can't help slipping it on… A perfect fit."],
+              "verb": "Do It",
+              "costs": [],
+              "outcome": {
+                "title": null,
+                "structure": "заголовок карточки + сокращённый флейвор сверху → комикс-полоса из 3 панелей → двухколоночный нарратив (правая колонка — системная заметка) → сетка тайлов",
+                "comicStripPanels": ["локация", "ботинки на мусоре", "кольцо в руке"],
+                "narrative": {
+                  "left": null,
+                  "right": "This item has been auto-equipped for you…",
+                  "rightStyle": "system-note"
+                },
+                "tiles": [
+                  { "kind": "item-new", "name": "Skull ring", "tooltip": "Big, brutal and surprisingly sinister.", "notes": "тайл нового предмета с hover-тултипом: имя + описание" },
+                  { "kind": "equipped", "text": "Your Skull ring has been equipped.", "frameStyle": "orange", "notes": "авто-экипировка" }
+                ]
+              }
+            }
+          ]
+        },
+
+        {
+          "id": "got-to-get-through",
+          "title": "Got to get through",
+          "kind": "mission",
+          "redFrameInHand": true,
+          "flavor": ["You know why. It just isn't quite the time to think about it yet."],
+          "notes": "В руке показана с красной рамкой — маркер миссионного типа.",
+          "actions": [
+            {
+              "actionId": "your-mission",
+              "name": "Your mission",
+              "description": ["But it's in the back of your mind. Always. Your mission. The reason you crossed the badlands to get here."],
+              "badges": ["just-once"],
+              "systemNoteItalic": "Get this done.",
+              "verb": "Do It",
+              "costs": [],
+              "outcome": {
+                "title": "Split wide.",
+                "structure": "вариант БЕЗ комикс-полосы: мини-шапка сыгранной карточки → тот же блок действия с бейджем «Just once.» → расширенный двухколоночный нарратив → заголовок → тайлы",
+                "narrative": {
+                  "left": "You're not just a random wanderer. Not just a desperate hopeful. You were sent… Here, in Cincinnati. Greatest of the border cities. Over 24 million people's worth of sprawling slum and glittering towers.",
+                  "right": "Your personal heaven or your personal hell? It doesn't matter. What matters is your mission."
+                },
+                "tiles": [
+                  { "kind": "knowledge-gained", "name": "Rare Insight", "amount": 1, "newTotal": 1, "text": "You've gained 1 Rare Insight (new total 1)", "notes": "«Rare» выделено красным — категория редкости" }
+                ]
+              },
+              "notes": "У персонажа есть персональная миссия, заданная при создании/прибытии («the reason you crossed the badlands») — вероятно, стержневая цель персональной линии."
+            }
+          ]
+        },
+
+        {
+          "id": "looks-like-summer",
+          "title": "Looks like summer",
+          "kind": "observation",
+          "flavor": ["This place is either too damn hot or too damn cold. A few days of bearable weather while the seasons change. But they change fast. Spring and autumn just don't exist any more."],
+          "notes": "Наблюдательная/атмосферная карта — дешёвый способ «прочитать» локацию. Сезоны = мировое состояние: в Cinci только резкие summer/winter, смена быстрая (Temperature/Glare/Sunlight в левой панели, GDD §12).",
+          "actions": [
+            {
+              "actionId": "the-seasons",
+              "name": "The seasons",
+              "description": ["Yeah, Cinci's seasons are sharp, abrupt, or so you've heard. Heard? It's more like you can feel it in your bones. Like you just know."],
+              "verb": "Do It",
+              "costs": []
+            }
+          ]
+        },
+
+        {
+          "id": "remembering",
+          "title": "Remembering?",
+          "kind": "decision-meta",
+          "flavor": ["You've got ideas about your future in the city already – people and places that'll be useful to you. Where they are. How to find them."],
+          "notes": "Карта памяти / мета-слой (roguelite): статусы делятся на персистентные (meta stats, persistent credit purchases, event items — переживают сброс) и нет (routes, suppliers, findable access codes — сгорают). Сброс — действие внутри карты, а не системное меню.",
+          "actions": [
+            {
+              "actionId": "all-good",
+              "name": "All good",
+              "description": ["You know you're not the first. People have come before you. You don't know how many. Somehow, it seems like you have a little of their knowledge."],
+              "verb": "Do It",
+              "costs": [],
+              "outcome": {
+                "title": "Sink yourself skyards.",
+                "narrative": {
+                  "left": "It's not magic. They must have fed information back to your controllers, who used it as part of your training. Training you've forgotten, but which is still embedded in you, waiting to be unlocked.",
+                  "right": "By default, you retain many things between lives, such as nearly all routes, drug dealer contacts, etc.",
+                  "rightStyle": "system-note"
+                },
+                "tiles": [
+                  { "kind": "knowledge-gained", "name": "Rumours/Cinci bordertown", "amount": 2, "newTotal": 3, "text": "You've gained 2 Rumours/Cinci bordertown (new total 3)" }
+                ],
+                "notes": "Новые концепты: controllers (управляют/воспитывают персонажа и собирают данные) + встроенное обучение «waiting to be unlocked». Игра оперирует понятием lives. Противоречие с правилом [ Reset ] (там routes/suppliers/access codes теряются): вероятно, «between lives» (естественная смерть) сохраняет больше, чем добровольный Reset — уточнить."
+              }
+            },
+            {
+              "actionId": "but-you-dont-remember",
+              "name": "But you don't remember",
+              "description": ["No... there's nothing like that in you. You're a blank slate.", "Use this to reset and start from scratch. You'll lose routes, suppliers, findable access codes and some other things, but not meta stats, persistent credit purchases, event items and some other things. This is only worth doing if you've already accumulated a lot of persistent stats and you really want to reset."],
+              "badges": ["careful-no-undo"],
+              "badgeTexts": { "careful-no-undo": "Be very careful. No undo." },
+              "verb": "Reset",
+              "verbUnavailableForNewCharacter": true,
+              "costs": [
+                { "iconDescription": "нераспознана", "amount": -2 },
+                { "iconDescription": "нераспознана", "amount": 20 }
+              ],
+              "notes": "Серая кнопка [ Reset ] с иконками стоимости −2 / +20. Прозрачное правило сброса + награда: «You'll also get 10 credits». Недоступен новому персонажу (нужно накопить persistent-статусы) — паттерн серых кнопок работает даже для мощных системных действий."
+            }
+          ]
+        },
+
+        {
+          "id": "ripe-for-theft",
+          "title": "Ripe for theft",
+          "kind": "npc-event",
+          "flavor": ["This guy's just slumped over by a wall, plugged in to an old school SensPerience rig. He's completely out of it. Looks like he's been under for days."],
+          "notes": "Карта-событие с NPC — одноразовая встреча. SensPerience (GDD §8, SOCKET) существует как «old school» технология.",
+          "actions": [
+            {
+              "actionId": "approach",
+              "name": "Approach",
+              "badges": ["just-once"],
+              "description": ["Even if you're not the type to do it, it seems unreal that he hasn't been robbed or worse by now."],
+              "verb": "Do It",
+              "costs": [],
+              "outcome": {
+                "title": "Man is meat//Meat and metal.",
+                "comicStripPanels": ["человек в SensPerience-риге", "крупный план лица с проводами", "девочка-подросток с обрезом за спиной"],
+                "narrative": {
+                  "left": "But it makes sense when you notice a young girl, teenaged probably, crouched near him, carrying a sawn-off and keeping a wild look in her eye. Daughter? Girlfriend? Hard to say.",
+                  "right": null
+                },
+                "tiles": [
+                  { "kind": "knowledge-gained", "name": "Rumour/Cinci Bordertown", "amount": 1, "newTotal": 4, "text": "You've gained 1 Rumour/Cinci Bordertown (new total 4)" }
+                ],
+                "notes": "Формат заголовка «фраза//фраза» — игра на смене акцента."
+              }
+            }
+          ]
+        },
+
+        {
+          "id": "tall-towers",
+          "title": "Tall towers",
+          "kind": "observation-worldbuilding",
+          "flavor": ["Maybe you could be forgiven for thinking that this place is a post-apocalyptic hellhole – if all you did was look at your feet."],
+          "notes": "Появляется в руке после пересдачи. Уточнение сеттинга: Cinci НЕ постапокалипсис — «bright, shining corporate towers» (24 млн жителей). Отсылка к мета-слою («You might not have much of a memory»).",
+          "actions": [
+            {
+              "actionId": "hellhole",
+              "name": "Hellhole?",
+              "artDescription": "светящаяся спираль/«геликс» из кругов — мотив перекликается с туториалом «Helix override»",
+              "description": ["Well, that part is true, maybe. But you know better than to think there's been an apocalypse. You might not have much of a memory, but you know that. And even if you didn't already, the bright, shining corporate towers of Cincinnati would tell you otherwise."],
+              "verb": "But...",
+              "notesVerb": "название кнопки может быть нарративной фразой-реакцией на flavor карты, а не глаголом действия",
+              "costs": [],
+              "outcome": {
+                "title": "The right side of longing.",
+                "narrative": {
+                  "left": "Not to mention the helicopters and aircraft overhead, or the stuff you see for sale in the market. And it's not like Cinci's the last bastion of civilisation either.\n\nIt might be the last if you're heading on this particular route out west. It might be the biggest of the new border cities. It might be what global fashion has decided is the current place to be. But it's still just one city amongst thousands spanning the globe.",
+                  "right": "But as for this place, here at your feet? Yeah, the bordertown might be fairly accurately described as a hellhole, at least if you've got to live here full time. The thing to do is to move on, as quick as you can."
+                },
+                "tiles": [
+                  { "kind": "knowledge-gained", "name": "Rumour/Cinci Bordertown", "amount": 1, "newTotal": 5, "text": "You've gained 1 Rumour/Cinci Bordertown (new total 5)" }
+                ],
+                "notes": "Cinci — один из тысяч border-городов «spanning the globe», возможно крупнейший и текущий выбор «global fashion». Заголовок совпадает с фразой из GDD §7 (пример экрана сводки дня) — либо пул заголовков переиспользуется, либо одна шаблонная форма. На кадре: current stash = 160."
+              }
+            }
+          ]
+        },
+
+        {
+          "id": "old-magazines",
+          "title": "Old magazines",
+          "kind": "observation-market",
+          "flavor": ["People sell all kinds of shit at the market. Well, markets; one of those places dotted around the bordertown where people gather together to sell. The one by the west gate is semi-permanent. The others come and go."],
+          "notes": "Раскрывает рынки bordertown: у западных ворот — полу-постоянный, остальные «come and go». Наблюдательные карты тоже бывают одноразовыми.",
+          "actions": [
+            {
+              "actionId": "ancient-news",
+              "name": "Ancient news",
+              "artDescription": "стопка старых газет/журналов",
+              "badges": ["just-once"],
+              "description": ["Like this guy, squatting next to a rough wooden box of old paper magazines. Probably decades out of date if they're even clean enough to read."],
+              "verb": "Look",
+              "notesVerb": "глагол пассивного наблюдения",
+              "costs": [],
+              "outcome": {
+                "title": "So empty//So real.",
+                "comicStripPanels": ["улица рынка", "лавка торговца в капюшоне", "старик, сидящий за коробкой журналов", "крупный план обложки журнала TIME «LOS ANGELES 2075»"],
+                "narrative": {
+                  "left": "The one on top's a Time from two decades ago, headlining conceptual plans to re-populate Los Angeles. Like that's ever going to happen after all these years.\n\nAncient news.",
+                  "right": null,
+                  "notes": "в конце текста — курсивное эхо названия действия"
+                },
+                "tiles": [
+                  { "kind": "knowledge-gained", "name": "Rumour/Cinci Bordertown", "amount": 1, "newTotal": 6, "text": "You've gained 1 Rumour/Cinci Bordertown (new total 6)" }
+                ],
+                "notes": "Lore-якорь хронологии: журнал 2075 = «two decades ago» → настоящее ≈ ~2095. Мир знает о планах репопуляции Los Angeles."
+              }
+            }
+          ]
+        },
+
+        {
+          "id": "exploring-the-town",
+          "title": "Exploring the town",
+          "kind": "exploration",
+          "evolvingCard": true,
+          "flavor": ["Dust everywhere. Bigger than at first glance."],
+          "systemNoteItalic": "Your first priority should be raising your familiarity",
+          "notes": "Карта эволюционирует: название одно, набор действий меняется с прогрессом (колода реагирует на статусы). Вариант 1 → после Familiar 1 → вариант 2. Рутинный цикл исследования: ходить → узнавать → копится Familiar + Rumours.",
+          "actions": [
+            {
+              "actionId": "walk-the-streets",
+              "variant": 1,
+              "name": "Walk the streets",
+              "artDescription": "пыль на ботинках",
+              "badges": ["just-once"],
+              "description": ["Things to learn. More dust on your boots."],
+              "verb": "Walk",
+              "costs": [],
+              "windowHeaderNote": "в шапке обе кнопки: DISCARD × и CLOSE × — подтверждает, что DISCARD опционален",
+              "outcome": {
+                "title": "Altitude.",
+                "comicStripPanels": ["alley-улица со граффити", "мужчина с пятном крови на футболке у лестницы", "группа местных, один с имплантом-глазом"],
+                "narrative": {
+                  "left": "The town is more badlands than city. Intertsticial, temporary, halfway between. Built from needs. The rentacops, the security firms, they don't come out here. Anything goes, anything can happen. But not everything does. Everyone here is here because they can't get in. The town serves needs, and needs are profits; rough, hard earned profits. A certain camaraderie.",
+                  "right": null
+                },
+                "tiles": [
+                  { "kind": "status-first", "statusName": "Familiar/Cinci bordertown", "value": 1, "note": "(you're new here.)", "text": "You now have Familiar/Cinci bordertown at 1 (you're new here.)" },
+                  { "kind": "knowledge-gained", "name": "Rumour/Cinci Bordertown", "amount": 1, "newTotal": 7, "text": "You've gained 1 Rumour/Cinci Bordertown (new total 7)" }
+                ],
+                "notes": "Familiarity — неймспейсированный статус Familiar/<локация> с числовым значением; курсивная пометка (you're new here.) — индикатор низкого уровня. Новый lore-термин: rentacops / security firms не заходят в bordertown."
+              }
+            },
+            {
+              "actionId": "going-further",
+              "variant": 2,
+              "unlocksAtFamiliar": 1,
+              "name": "Going further",
+              "artDescription": "тот же арт ботинок",
+              "badges": ["just-once"],
+              "description": ["You've scratched the surface of this dump, but there's more to learn."],
+              "verb": "Walk",
+              "costs": [],
+              "requirements": [
+                {
+                  "statusName": "Familiar/Cinci bordertown",
+                  "op": "=",
+                  "value": 1,
+                  "metBadgeText": "REQUIREMENT MET",
+                  "tooltip": "You need exactly 1 (you're new here.) – You have 1 (you're new here.)",
+                  "flavorTooltip": "Rough if you don't know it. Rough if you do."
+                }
+              ],
+              "outcome": {
+                "title": "Snake hips.",
+                "comicStripPanels": ["alley-улица со граффити", "мужчина, поднимающийся по лестнице к свету в конце", "группа местных, один с имплантом-глазом"],
+                "narrative": {
+                  "left": "You walk further. Deeper, but not too deep. Some of this place is dangerous, but none of it's as dangerous as it appears. First glances. Impressions. People keep to themselves. No gang territory, and the organisations out here like the place because they want to stay hidden.",
+                  "right": "Yes... at first you thought that everyone was just waiting to get in, or unable, but it doesn't really work that way. There are people out here working a profit. People filtering in and out of the city, coming and going. People living out here for a reason. Hiding. Plotting. Businesses not well suited to legal oversight..."
+                },
+                "tiles": [
+                  { "kind": "status-increased", "statusName": "Familiar/Cinci bordertown", "value": 2, "was": 1, "text": "Familiar/Cinci bordertown has increased to 2 (was 1)." },
+                  { "kind": "knowledge-gained", "name": "Rumour/Cinci Bordertown", "amount": 1, "newTotal": 8, "text": "You've gained 1 Rumour/Cinci Bordertown (new total 8)" }
+                ],
+                "notes": "Каждое исследовательское действие даёт ровно +1 Familiar и +1 Rumour. Lore: люди живут в bordertown не только потому что не могут попасть в город — «working a profit», прячутся, сговариваются; gang-территорий нет."
+              }
+            }
+          ]
+        },
+
+        {
+          "id": "trash-talk-old-wounds",
+          "title": "Trash talk/Old wounds",
+          "kind": "npc-meeting",
+          "artDescription": "солнце над сухой деревней/пустошь",
+          "flavor": ["Two old timers, tough as old leather. Minutes from the city but a world and a fence away. Walking and talking."],
+          "notes": "Двухчастное название через «/» — возможно, два аспекта одной сцены.",
+          "actions": [
+            {
+              "actionId": "listen-in",
+              "name": "Listen in",
+              "artDescription": "ухо",
+              "badges": ["just-once"],
+              "description": ["Something worth learning?"],
+              "verb": "Do It",
+              "costs": [],
+              "outcome": {
+                "title": "Driving alone//Beating heart.",
+                "comicStripPanels": [],
+                "narrative": {
+                  "left": "\"I'll tell you why I've got a problem. I'll tell you.\" Clearly an old sore, picked at over and over. \"I'll tell you. I fought for Ohio. You fought for Kentucky. We won. You lost.",
+                  "right": "\"And that's fair and square, 'cept you just won't leave it alone. You were never even from Kentucky. I just don't get it, is all.\"",
+                  "rightStyle": "dialogue"
+                },
+                "tiles": [
+                  { "kind": "knowledge-gained", "name": "Hard fact/Cinci Bordertown", "amount": 1, "newTotal": 1, "text": "You've gained 1 Hard fact/Cinci Bordertown (new total 1)" }
+                ],
+                "notes": "Новый коллекционируемый счётчик: пока встречи с NPC дают «Hard facts», наблюдательные карты — «Rumours». Lore: конфликт Ohio vs Kentucky объясняет валюту Ohio Dollars и границу badlands/Cincinnati."
+              }
+            }
+          ]
+        },
+
+        {
+          "id": "the-last-thread",
+          "title": "The last thread",
+          "kind": "decision-mission",
+          "artDescription": "сложенный листок",
+          "flavor": [
+            "Your last connection with what came before. Your training for this mission. Your instructions. Your entire life. They've all been set to fade, like a dream, until they were needed. Triggered memory blocks, carefully constructed.",
+            "But in your pocket, just a scrap of paper: Martha. Your handwriting. That's all it says."
+          ],
+          "notes": "Первая карта с двумя действиями-выбором после «Remembering?» и первое реальное решение с последствиями. Вводится объект/персонаж «Martha» — имя на клочке бумаги почерком самого персонажа; связь со встроенным обучением («Triggered memory blocks, carefully constructed» ↔ «waiting to be unlocked»).",
+          "actions": [
+            {
+              "actionId": "burn-it",
+              "name": "Burn it",
+              "artDescription": "пламя",
+              "description": ["You're guessing that you wanted this to be the one thing you didn't forget. But you've forgotten. So there's only one thing to do."],
+              "verb": "Click",
+              "costs": [],
+              "outcomeDocumented": false
+            },
+            {
+              "actionId": "keep-it",
+              "name": "Keep it",
+              "artDescription": "кулак",
+              "description": ["Your instinct is to set this thing alight. You shouldn't really have it in the first place. It's too risky. Too dangerous. But you can't let go of this one, last thread."],
+              "verb": "Stash",
+              "costs": [],
+              "outcome": {
+                "title": "Ready? Then wake up.",
+                "comicStripPanels": ["промзона/трущбы", "крупный план: рука держит клочок с красной надписью «Martha»", "персонаж в перчатке убирает бумажку во внутренний карман"],
+                "narrative": {
+                  "left": "You fold it up tight and slide it back into your pocket, pushing it deep. Your hand brushes against something else in there. At least my masters didn't send me completely unprepared.",
+                  "right": null
+                },
+                "tiles": [
+                  { "kind": "item-gained", "name": "Naïve shot", "amount": 1, "newTotal": 1, "text": "You've gained 1 Naïve shot (new total 1)", "notes": "«Naïve» выделено красным (с ï); иконка — шприц/ампула; четвёртый тип коллекционных счётчиков после Rumour/Hard fact/Rare Insight" }
+                ],
+                "notes": "Подтверждение роли «masters» (отправивших персонажа) — расширение лора controllers. В кармане ещё что-то помимо бумажки с Martha. Награды за решения отличаются от наград за наблюдение/встречи."
+              }
+            }
+          ]
+        },
+
+        {
+          "id": "something-to-sell",
+          "title": "Something to sell",
+          "kind": "trade",
+          "artDescription": "антистатичный пакет с двумя планками RAM (зелёная плата на тёмном фоне)",
+          "flavor": ["You've got an anti-static bag sewn into the lining of your coat. Two sticks of RAM, a fair few gigs each. Another kind of currency, safer to carry across the badlands than bank notes. Maybe it's time to cash them in? Although you're pretty sure you could get more if you wait until you're into the city. Always choices to make..."],
+          "windowHeader": {
+            "cardRequirementsPanel": true,
+            "requirementsBadges": [
+              { "pictogram": "нераспознана", "value": 2, "inferredStatus": "Familiar/Cinci bordertown = 2 (по таймингу; частично подтверждено кадром результата: «was 2»)" }
+            ],
+            "buttons": ["CLOSE «"],
+            "notes": "Первый задокументированный инстанс CARD REQUIREMENTS — опциональный элемент шаблона окна. Обычный CLOSE × скрыт, пока открыта панель требований."
+          },
+          "observedFrame": {
+            "character": "zer0 ex",
+            "apWindowFrame": "49/50 | 09:51 (binge mode зелёный)",
+            "previousHandFrame": "48/50 | 04:56 (+1 AP от таймера восстановления, добора между кадрами не наблюдалось)",
+            "rightPanel": { "npcName": "A stranger", "ohioDollars": 0, "currentStash": 160 }
+          },
+          "notes": "Торговая карта: носимое «валютоносное» имущество в подкладке пальто. Экономический выбор: продать сейчас на bordertown или дождаться города («you could get more if you wait until you're into the city») — цена зависит от локации. Кремнию 50 лет, а он в спросе: «modern apps are hungry for memory», но silicon на улицах трудно достать.",
+          "actions": [
+            {
+              "actionId": "antiques",
+              "name": "Antiques?",
+              "artDescription": "тёмно-красный портрет фигуры с вопросительным знаком",
+              "badges": ["just-once"],
+              "description": ["The funny thing is that these could easily be 50 years old, and they're still in demand. It's not because they're antiques that they're valuable. Modern apps are hungry for more memory than ever, but silicon's hard to come by on the streets."],
+              "verb": "Do It",
+              "costs": [],
+              "outcome": {
+                "title": "I'm still your memory.",
+                "observedFrame": {
+                  "ap": "56/50 (выше номинального лимита; binge mode активен)",
+                  "credits": 1,
+                  "leftPanelHealthWellbeing": { "sustenance": "Replete", "alertness": "Full alertness", "carpeDiem": 10 },
+                  "tabs": ["STORY", "OUTFIT", "INVENTORY (active)"],
+                  "overlayHint": { "title": "Click me too // (Redisplayed)", "subtitle": "We're just getting started.", "notes": "механизм повторного показа результата по клику на карту; «//»-формат в UI-подсказках" }
+                },
+                "comicStripPanels": [],
+                "narrative": {
+                  "left": "So people use whatever they can get. Modern motherboards are designed to take any stick from the turn of the century onwards. It's a different story if you're corporate, of course.",
+                  "right": "Hit the market if you want to sell these.",
+                  "rightStyle": "system-note"
+                },
+                "tiles": [
+                  { "kind": "status-increased", "statusName": "Familiar/Cinci bordertown", "value": 3, "was": 2, "text": "Familiar/Cinci bordertown has increased to 3 (was 2)" },
+                  { "kind": "item-gained", "name": "RAM", "amount": 2, "newTotal": 2, "text": "You've gained 2 RAM (new total 2)", "notes": "«RAM» выделено красным; иконка — планка памяти" }
+                ]
+              },
+              "outcomeNotes": "(а) действие = оценка/раскрытие, а не продажа: «Hit the market if you want to sell these.» → фактическая продажа на сервисной точке «The border market» (chop shop / junk dealer); (б) скрытое носимое имущество конвертируется в трекаемый счётчик RAM — новый тип предметного счётчика; красное выделение имени — маркер категории (паттерн «Rare», «Naïve»); (в) тайл «(was 2)» подтверждает гейтинг картой при Familiar = 2."
+            }
+          ]
+        },
+
+        {
+          "id": "lucky-bullet",
+          "title": "Lucky bullet",
+          "kind": "npc-meeting",
+          "artDescription": "одиночный патрон на тёмном фоне (9mm)",
+          "flavor": ["There are a few peeps kicking around the guard post, just killing time. Waiting their turn. Even if you've got a pass, you still gotta queue."],
+          "notes": "Полное окно карточки кадром не зафиксировано — только экран результата (кадры результатов идут подряд в одной story-сессии: AP 56/50, binge mode активен, credits 1; панели идентичны кадру «Something to sell»). Флейвор задаёт механику очереди на пограничном посту: даже с pass приходится ждать.",
+          "actions": [
+            {
+              "actionId": "join-them",
+              "name": "Join them",
+              "artDescription": "ноги в ботинках",
+              "description": ["One of the guys is handling an old Sig Sauer 226, showing it off. Might be old, but it's been so well kept it looks brand new."],
+              "verb": null,
+              "notesVerb": "кнопка и бейджи на кадре не видны (блок действия показан в составе экрана результата)",
+              "outcome": {
+                "title": "The heavens are full of lead.",
+                "comicStripPanels": [
+                  "группа у поста, один показывает пистолет",
+                  "лысый мужик с поднятой рукой и пистолетом на фоне толпы",
+                  "крупный план лица женщины с золотой цепью",
+                  "рука со вскрытым магазином, заряженным патронами",
+                  "бросанный в воздух патрон над пальцами"
+                ],
+                "comicStripNote": "5 панелей — самый длинный задокументированный стрип (диапазон 3–4 расширен)",
+                "narrative": {
+                  "left": "\"Yeah, the turn of the century was a golden age for guns, especially handguns. Or even earlier, you get designs two centuries old still in use today. I mean, just look at this thing. Once you perfect the basic design, there's just not a lot of improvement to be made. And they made so many of 'em, the country was gun-nuts back then! That's why you see so many of these things kicking around.\"",
+                  "right": "\"I mean, sure, there are plenty of new designs around, but if you can pick up an old Sig or Colt cheap, why bother? They've stood the test of time. Won't let you down.\" He seems to be listening in. \"Hey, new round here, right? Have this, it'll bring you luck.\"",
+                  "rightStyle": "dialogue",
+                  "closingLine": "He flips you a round, and laughs. A single round. 9mm."
+                },
+                "tiles": [
+                  { "kind": "status-first", "statusName": "Enthusiasm", "value": 1, "text": "You now have Enthusiasm at 1", "notes": "«Enthusiasm» выделено красным; кадр обрезан ниже — сетка тайлов и кнопка » forward, вероятно, продолжаются. Либо подаренный патрон трекается в скрытом тайле, либо Enthusiasm — новый тип статуса за знакомство со «знающим» — уточнить." }
+                ],
+                "notes": "Заголовок — притчевая афористичная фраза (стиль «The eyes can't see when the mind is blind.»), игра слов: небеса полны свинца. Лор оружия: «turn of the century» = золотой век огнестрела, дизайны ~1890-х до сих пор в употреблении; Sig Sauer 226 / Colt — «old» бренды."
+              }
+            }
+          ]
+        }
+
+      ]
+    },
+
+    {
+      "deckId": "down-to-work",
+      "title": "Down to Work",
+      "kind": "work",
+      "notes": "Рабочая колода. Состав не задокументирован.",
+      "cards": []
+    },
+
+    {
+      "deckId": "life-survival",
+      "title": "Life/Survival",
+      "kind": "survival",
+      "notes": "Глобальные выживальские карточки. Состав не задокументирован.",
+      "cards": []
+    }
+  ],
+
+  "pinnedRow": {
+    "locationId": "cinci-bordertown",
+    "description": "Pinned-ряд под рукой: не статичные действия локации, а закреплённые карты, меняющиеся с локацией и прогрессом; продвижение требует использовать оба типа карт (добранные + pinned). Сервисные точки открываются по одной с прогрессом.",
+    "insertRule": "новые вставляются ПЕРЕД «bordertown-bar»",
+    "onboardingStep1Set": ["getting-into-the-city", "back-to-the-border-post", "bordertown-bar"],
+    "fullProgressionOrder": [
+      "getting-into-the-city",
+      "back-to-the-border-post",
+      "the-border-market",
+      "the-good-doctor",
+      "bordertown-bar"
+    ],
+    "cards": [
+
+      {
+        "id": "getting-into-the-city",
+        "title": "Getting into the city",
+        "kind": "pinned-basic",
+        "artDescription": "иконка со стрелкой",
+        "notes": "Базовая pinned-карта (набор шага 1 онбординга). Других деталей не зафиксировано.",
+        "actions": []
+      },
+
+      {
+        "id": "back-to-the-border-post",
+        "title": "Back to the border post",
+        "kind": "pinned-basic",
+        "notes": "Базовая pinned-карта (набор шага 1 онбординга). Других деталей не зафиксировано.",
+        "actions": []
+      },
+
+      {
+        "id": "the-border-market",
+        "title": "The border market",
+        "kind": "pinned-service",
+        "unlocksAtFamiliar": 1,
+        "notes": "Рынок у пограничного поста (из лора «Old magazines»: «the one by the west gate is semi-permanent»). Добавлена в pinned-ряд после Familiar = 1. Полное окно: шапка только CLOSE ×; кадр — zer0 ex, AP 50/50, таймер рядом со счётчиком не виден.",
+        "flavor": [
+          "There's a community of sorts, clustered near the border post. Serving people who can't get in. Serving people leaving. People buying. People selling.",
+          "There's always a weird load of stuff floating around. Old junk off blankets in the dust. Baskets of old coins, watches, loaded over by women with weathered faces… but just sometimes, you spot something useful."
+        ],
+        "systemNoteItalic": "You won't need a lot of this stuff until you've been through the border and come back again.",
+        "actionsLayoutNote": "три блока действий — вертикальный список (не вкладки продавцов из GDD §11)",
+        "actions": [
+          {
+            "actionId": "rumours-and-idle-chatter",
+            "name": "Rumours and idle chatter",
+            "artDescription": "ухо",
+            "description": ["There's always a few people drifting around here. Buying, selling. Just wandering. People who work here, scrape out some kind of life. Cock an ear and you might find out something interesting."],
+            "verb": "Listen",
+            "timeCostBadge": 1,
+            "successChance": { "flatPct": 7 },
+            "rewardPreview": [
+              { "iconDescription": "слух/рука (нераспознана точно)", "amount": 2 }
+            ],
+            "outcomeFail": {
+              "title": "The eyes can't see when the mind is blind.",
+              "verdict": { "label": "You did bad", "style": "серая полоса" },
+              "structure": "мини-шапка карты → блок действия (БЕЗ комикс-полосы, без двухколоночной раскладки, без бейджа) → плашка вердикта → одноколоночный нарратив → заголовок; справа в полосе — ряд из трёх мелких флейвор-иконок",
+              "narrative": {
+                "left": "There's not much going on. Too hot, too dry. No one's in the mood to talk. Or maybe they just saw you coming.",
+                "right": null
+              },
+              "tiles": [
+                { "kind": "status-first", "statusName": "Skill/Observation", "value": 2, "text": "You now have Skill/Observation at 2" },
+                { "kind": "flavor-only", "text": "Sweeping out after a long day. Life goes on." },
+                { "kind": "flavor-only", "text": "Out there. Somewhere." }
+              ],
+              "observedFrame": { "apBefore": "50/50", "apAfter": "49/50 (Listen | 1 стоил ровно 1 AP)", "timerAppearedAt": "49/50 | 09:53" },
+              "notes": "Первый задокументированный кадр вердикта неудачи. Честная асимметрия подтверждена: при неудаче растёт навык. Счётчики знаний (Rumour/Hard fact) растут, судя по всему, только при успехе — тайла Rumour в кадре нет. В этом кадре левая/правая панели остаются видимыми: результат занимает центральную колонку story-раскладки."
+            },
+            "outcomeSuccessDocumented": false
+          },
+          {
+            "actionId": "the-chop-shop",
+            "name": "The chop shop",
+            "artDescription": "ломбард/мастерская: corrugated iron, old foamed steel; этаноловый генератор питает риги",
+            "description": ["Corrugated iron and old foamed steel, an old ethanol generator powering the rigs. They'll take parts. Bits of old engines. Piping. That kind of thing."],
+            "verb": "Sell",
+            "verbUnavailableForNewCharacter": true,
+            "rewardPreview": [
+              { "iconDescription": "награда (нераспознана)", "amount": 10 }
+            ],
+            "outcomeDocumented": false
+          },
+          {
+            "actionId": "the-junk-dealer",
+            "name": "The junk dealer",
+            "artDescription": "палатка: большой навес на кривых стойках, desert style",
+            "descriptionComplete": false,
+            "description": ["A guy at the back, dirtier and dustier than most. A large awning, uneven poles holding it up. Desert style. He's…"],
+            "verb": "Sell",
+            "verbUnavailableForNewCharacter": true,
+            "notes": "Текст на кадре обрезан снизу.",
+            "outcomeDocumented": false
+          }
+        ],
+        "summaryNotes": "(а) рынок = хаб с тремя услугами: прослушивание слухов и две точки продажи (chop shop — детали/старые двигатели/трубы; junk dealer); (б) продажа недоступна новому персонажу ([ Sell ] серые + превью наград); (в) флейвор склеивается с лором «Exploring the town» — то же сообщество bordertown; (г) курсивная заметка гатит полезность рынка циклом пересечения границы («through the border and come back again») — рынок раскрывается после первого входа в город."
+      },
+
+      {
+        "id": "the-good-doctor",
+        "title": "The good doctor",
+        "kind": "pinned-service",
+        "unlocksAtFamiliarInferred": 2,
+        "windowArtDescription": "небольшой домик с синим медкрестом, пустынная обстановка, фигура человека снаружи",
+        "flavor": ["Or Dr Feelgood, if you prefer. Pharmaceuticals. Nanites. Things you need to get by."],
+        "npcAliases": { "drFeelgood": "альтернативное имя NPC" },
+        "notes": "Вероятно, появилась после Familiar 2 (результат «Going further»). Полное окно: шапка только CLOSE ×; кадр — zer0 ex, AP 49/50 | 08:41. Все три действия серые для нового персонажа (Ohio Dollars = 0).",
+        "actions": [
+          {
+            "actionId": "whats-in-these-things",
+            "name": "What's in these things?",
+            "artDescription": "медицинский сканер/аппарат зелёного цвета",
+            "description": ["You show the doctor a battered strip of blisters you found. \"Sure, I'll check them out for you. I'll have to break one open though, and it'll cost you a dollar.\""],
+            "verb": "Test",
+            "verbUnavailableForNewCharacter": true,
+            "costsPreview": [
+              { "iconDescription": "стоимость — 1 Ohio Dollar", "amount": -1 }
+            ],
+            "rewardPreview": [
+              { "iconDescription": "награда (вероятно, информация/инсайт о содержимом)", "amount": 7 }
+            ],
+            "outcomeDocumented": false
+          },
+          {
+            "actionId": "buy-some-nanites",
+            "name": "Buy some nanites",
+            "artDescription": "светящийся сине-голубой контейнер/устройство",
+            "description": ["He's got good quality ones somewhere. You could persuade him to part with them. Charm. Plus cash. Or just settle for what he's got out front."],
+            "verb": "Grey market",
+            "notesVerb": "нарративная кнопка вместо стандартной [ Buy ] — «серый рынок» с элементом убеждения; текст прямо упоминает «Charm. Plus cash.» — стоимость/условие включает навык, а не только деньги",
+            "verbUnavailableForNewCharacter": true,
+            "rewardPreview": [
+              { "iconDescription": "награда (нераспознана)", "amount": 29 }
+            ],
+            "outcomeDocumented": false
+          },
+          {
+            "actionId": "buy-some-plasma-packs",
+            "name": "Buy some plasma packs",
+            "artDescription": "красный мешок/пакет плазмы на крюке",
+            "description": ["They're not hard to get, and he's got some boxes out back. You've seen them.", "Two packs."],
+            "verb": "Do It",
+            "verbUnavailableForNewCharacter": true,
+            "rewardPreview": [
+              { "iconDescription": "награда (нераспознана)", "amount": 158 }
+            ],
+            "outcomeDocumented": false
+          }
+        ],
+        "summaryNotes": "Доктор потенциально ключевая точка для здоровья/имплантов: тестирование найденных медикаментов, получение нанитов (киберпанк-механика восстановления?), покупка плазменных пакетов."
+      },
+
+      {
+        "id": "bordertown-bar",
+        "title": "Bordertown bar",
+        "kind": "pinned-service",
+        "flavor": ["You've tried a few places. Enough to know which'll serve something that's just rough rather than something that'll kill you… You've been around here long enough."],
+        "notes": "Бар = сервисная точка локации (купить еду/напитки, рассказать историю). Подтверждает, что pinned-карты открывают те же полные окна карточек. У персонажа есть «история» в локации (знает места). Все три действия серые для нового персонажа.",
+        "actions": [
+          {
+            "actionId": "got-something-to-talk-about",
+            "name": "Got something to talk about",
+            "description": ["No one's going to care if you don't buy a drink if you've got a story worth sharing."],
+            "systemNoteItalic": "The time of day might move on a little while you're here.",
+            "verb": "Talk",
+            "verbUnavailableForNewCharacter": true,
+            "notes": "Разговор требует истории, которую стоит рассказать (гейтинг накопленным состоянием — вероятно, слухи/события). Под кнопкой — сетка иконок с +N (рука, лицо/NPC, зелёный бейдж).",
+            "outcomeDocumented": false
+          },
+          {
+            "actionId": "buy-some-beers",
+            "name": "Buy some beers",
+            "description": ["Seems like you need a few bottles to take away with you. He's probably got some under the bar."],
+            "verb": "Buy",
+            "verbUnavailableForNewCharacter": true,
+            "costsPreviewAndRewards": [
+              { "iconDescription": "ящик (стоимость)", "amount": -1 },
+              { "iconDescription": "рука/предмет", "amount": 4 },
+              { "iconDescription": "бутылка", "amount": 15 }
+            ],
+            "notes": "Точные значения иконок на кадре не распознаны (−N).",
+            "outcomeDocumented": false
+          },
+          {
+            "actionId": "buy-some-jerk",
+            "name": "Buy some jerk",
+            "description": ["You know the guy, right? This stuff is safe, even if it tastes like a combination of fish food and boot leather."],
+            "verb": "Buy",
+            "verbUnavailableForNewCharacter": true,
+            "costsPreviewAndRewards": [
+              { "iconDescription": "рука (стоимость)", "amount": -1 },
+              { "iconDescription": "мясо", "amount": 7 },
+              { "iconDescription": "коробка", "amount": 4 }
+            ],
+            "notes": "Точное значение иконки стоимости на кадре не распознано (−N).",
+            "outcomeDocumented": false
+          }
+        ]
+      }
+
+    ]
+  }
+}
