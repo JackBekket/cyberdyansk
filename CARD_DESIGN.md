@@ -38,7 +38,7 @@
 заголовок + flavor text (несколько абзацев)
 [опционально] системная заметка курсивом — правила частоты выпадения описаны ПРОЗРАЧНО:
   «This will come up much more often if you have a large crew or if their loyalty is less than their number»
-[опционально] CARD REQUIREMENTS — бейджи NPC/статусов как условий появления (иконки +N)
+[опционально] CARD REQUIREMENTS — бейджи NPC/статусов как условий появления (иконки +N) — первый задокументированный инстанс: окно «Something to sell» (`CARDS.md` §1): раскрытый блок в правой части шапки с бейджем-иконкой `2` и кнопкой `CLOSE «`; обычный CLOSE × при открытой панели требований скрыт
 кнопка CLOSE × в шапке; DISCARD не обязателен
 действия внутри карточки — блок: арт + имя действия + описание, справа кнопка:
   имя действия — фраза («Picking it out», «Your mission»)
@@ -53,7 +53,7 @@
 
 ### Примеры конкретных карт
 
-Все разобраннные карты, их окна и экраны результатов вынесены в **`CARDS.md`** (реестр карточек): «Buried in ash» (минимальная форма окна), «Got to get through» (+ результат «Split wide.»), «Looks like summer», «Remembering?» (+ «Sink yourself skyards.»), «Ripe for theft» (+ «Man is meat//Meat and metal.»), «Tall towers» (+ «The right side of longing.»), «Old magazines» (+ «So empty//So real.»), «Exploring the town» — оба варианта действий (+ «Altitude.», «Snake hips.»), «Trash talk/Old wounds» (+ «Driving alone//Beating heart.»), «The last thread» (+ «Ready? Then wake up.»), pinned-карта «Bordertown bar». Системные выводы из этих примеров сохранены ниже (разделы 5–6).
+Все разобраннные карты, их окна и экраны результатов вынесены в **`CARDS.md`** (реестр карточек): «Buried in ash» (минимальная форма окна), «Got to get through» (+ результат «Split wide.»), «Looks like summer», «Remembering?» (+ «Sink yourself skyards.»), «Ripe for theft» (+ «Man is meat//Meat and metal.»), «Tall towers» (+ «The right side of longing.»), «Old magazines» (+ «So empty//So real.»), «Exploring the town» — оба варианта действий (+ «Altitude.», «Snake hips.»), «Trash talk/Old wounds» (+ «Driving alone//Beating heart.»), «The last thread» (+ «Ready? Then wake up.»), «Something to sell», pinned-карты: «Bordertown bar», «The border market» (+ неудачный результат «Listen»), «The good doctor». Системные выводы из этих примеров сохранены ниже (разделы 5–6).
 
 
 
@@ -68,7 +68,7 @@
 
 ## 6. Результат действия
 
-- **Вердикт** по броску против порога: шкала исхода (You did bad / You did good). Частичный успех возможен при неудаче.
+- **Вердикт** по броску против порога: шкала исхода (You did bad / You did good); частичный успех возможен при неудаче. Первый задокументированный кадр неудачи — «Listen | 1» на рынке: серая полоса `You did bad` + одноколоночный нарратив без комикс-полосы, при этом навык всё равно вырос (`Skill/Observation at 2`) и тайла Rumour не было (разбор — `CARDS.md`, «The border market»).
 - **Нарратив** адаптируется под результат (сцены с диалогами, двухколоночный текст).
 - Результат = список изменений в **едином тайловом формате**:
   - `Skill/Observation is increasing (current: 35)` — числовой статус + прогресс-бар;
@@ -77,8 +77,8 @@
   - `Familiar/Cinci bordertown has increased to 2 (was 1).` — рост уже существующего статуса со старым значением («(was N)»);
   - слухи и инсайты как коллекционируемые ресурсы: `Rumour/Cinci Bordertown new total 7`, `You've gained 1 Rare Insight (new total 1)` — категории с префиксом редкости (`Rare`) выделены красным;
   - **флейвор-тайлы без чисел** (иконка + короткая строка: «Shifting.», «Echoes in dirt.») — чисто нарративные результаты;
-  - заголовок результата поддерживает **strikethrough** (`«Heavy ~~light~~.»` в онбординге) и формат **«фраза//фраза»** (смена акцента через `//`: «Man is meat//Meat and metal.», «So empty//So real.», «Driving alone//Beating heart.»); серия каламбурных/битых-английских заголовков: «Split wide.», «Sink yourself skyards.», «Altitude.», «Snake hips.», «Man is meat//Meat and metal.», «So empty//So real.», «Driving alone//Beating heart.»; есть и **вопрос+императив**: «Ready? Then wake up.» (карта-решение) — фирменный стиль экранов результата.
-- **Честная асимметрия**: при неудаче растёт навык (опыт за попытку); при успехе есть цена (Psychosis +1, Lethargy).
+  - заголовок результата поддерживает **strikethrough** (`«Heavy ~~light~~.»` в онбординге) и формат **«фраза//фраза»** (смена акцента через `//`: «Man is meat//Meat and metal.», «So empty//So real.», «Driving alone//Beating heart.»); серия каламбурных/битых-английских заголовков: «Split wide.», «Sink yourself skyards.», «Altitude.», «Snake hips.», «Man is meat//Meat and metal.», «So empty//So real.», «Driving alone//Beating heart.»; есть и **вопрос+императив**: «Ready? Then wake up.» (карта-решение), и **притчевая афористичная фраза**: «The eyes can't see when the mind is blind.» (неудача «Listen» на рынке) — фирменный стиль экранов результата.
+- **Честная асимметрия**: при неудаче растёт навык (опыт за попытку — подтверждено кадром: неудача «Listen | 1» на рынке дала `Skill/Observation at 2`); при успехе есть цена (Psychosis +1, Lethargy).
 - Флейвор-строка результата («Neon dreams and...») с набором мелких иконок.
 - **Результат — полноэкранный пагинируемый экран** (кнопка `» forward` внизу): тот же паттерн, что в онбординге (§2). Структура варьируется:
   - «Picking it out»: заголовок карточки + сокращённый флейвор сверху → **кинематографическая полоса из 3 панелей комикс-арта** (локация / ботинки на мусоре / кольцо в руке) → двухколоночный нарратив, где правая колонка — курсивная системная заметка («This item has been auto-equipped for you…») → сетка тайлов;
