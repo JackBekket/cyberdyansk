@@ -1,0 +1,853 @@
+{
+  "meta": {
+    "source": "content/cards.json",
+    "generatedBy": "scripts/generate_assets.py (python3, без зависимостей)",
+    "promptFormula": "styleBlock.positive + \", \" + subjectEn; subjectEn заполняется вручную по descriptionRu",
+    "statusLegend": {
+      "draft": "описание зафиксировано в cards.json — осталось написать subjectEn и сгенерить",
+      "tbd": "арт не зафиксирован кадром — описание появится позже",
+      "shared": "тот же арт, что у ref — генерируется один раз и переиспользуется"
+    },
+    "aspectNote": "aspectRatio ориентировочный по скриншотам; сверить с реальным UI перед генерацией"
+  },
+  "styleBlock": {
+    "positive": "cyberpunk noir inked illustration, muted desaturated palette, gritty urban decay, painterly comic art direction",
+    "negative": "photorealistic, 3d render, bright neon oversaturation, text, watermark"
+  },
+  "assets": [
+    {
+      "id": "action-art:buried-in-ash:picking-it-out",
+      "type": "action-art",
+      "sourceRef": {
+        "deckId": "bordertown-life",
+        "cardId": "buried-in-ash",
+        "actionId": "picking-it-out"
+      },
+      "descriptionRu": "кольцо-череп",
+      "subjectEn": null,
+      "aspectRatio": "1:1",
+      "status": "draft",
+      "ref": null,
+      "filePath": null
+    },
+    {
+      "id": "action-art:exploring-the-town:going-further",
+      "type": "action-art",
+      "sourceRef": {
+        "deckId": "bordertown-life",
+        "cardId": "exploring-the-town",
+        "actionId": "going-further"
+      },
+      "descriptionRu": "тот же арт ботинок",
+      "subjectEn": null,
+      "aspectRatio": "1:1",
+      "status": "shared",
+      "ref": "action-art:exploring-the-town:walk-the-streets",
+      "filePath": null
+    },
+    {
+      "id": "action-art:exploring-the-town:walk-the-streets",
+      "type": "action-art",
+      "sourceRef": {
+        "deckId": "bordertown-life",
+        "cardId": "exploring-the-town",
+        "actionId": "walk-the-streets"
+      },
+      "descriptionRu": "пыль на ботинках",
+      "subjectEn": null,
+      "aspectRatio": "1:1",
+      "status": "draft",
+      "ref": null,
+      "filePath": null
+    },
+    {
+      "id": "action-art:lucky-bullet:join-them",
+      "type": "action-art",
+      "sourceRef": {
+        "deckId": "bordertown-life",
+        "cardId": "lucky-bullet",
+        "actionId": "join-them"
+      },
+      "descriptionRu": "ноги в ботинках",
+      "subjectEn": null,
+      "aspectRatio": "1:1",
+      "status": "draft",
+      "ref": null,
+      "filePath": null
+    },
+    {
+      "id": "action-art:old-magazines:ancient-news",
+      "type": "action-art",
+      "sourceRef": {
+        "deckId": "bordertown-life",
+        "cardId": "old-magazines",
+        "actionId": "ancient-news"
+      },
+      "descriptionRu": "стопка старых газет/журналов",
+      "subjectEn": null,
+      "aspectRatio": "1:1",
+      "status": "draft",
+      "ref": null,
+      "filePath": null
+    },
+    {
+      "id": "action-art:something-to-sell:antiques",
+      "type": "action-art",
+      "sourceRef": {
+        "deckId": "bordertown-life",
+        "cardId": "something-to-sell",
+        "actionId": "antiques"
+      },
+      "descriptionRu": "тёмно-красный портрет фигуры с вопросительным знаком",
+      "subjectEn": null,
+      "aspectRatio": "1:1",
+      "status": "draft",
+      "ref": null,
+      "filePath": null
+    },
+    {
+      "id": "action-art:tall-towers:hellhole",
+      "type": "action-art",
+      "sourceRef": {
+        "deckId": "bordertown-life",
+        "cardId": "tall-towers",
+        "actionId": "hellhole"
+      },
+      "descriptionRu": "светящаяся спираль/«геликс» из кругов — мотив перекликается с туториалом «Helix override»",
+      "subjectEn": null,
+      "aspectRatio": "1:1",
+      "status": "draft",
+      "ref": null,
+      "filePath": null
+    },
+    {
+      "id": "action-art:the-border-market:rumours-and-idle-chatter",
+      "type": "action-art",
+      "sourceRef": {
+        "pinnedRow": true,
+        "cardId": "the-border-market",
+        "actionId": "rumours-and-idle-chatter"
+      },
+      "descriptionRu": "ухо",
+      "subjectEn": null,
+      "aspectRatio": "1:1",
+      "status": "shared",
+      "ref": "action-art:trash-talk-old-wounds:listen-in",
+      "filePath": null
+    },
+    {
+      "id": "action-art:the-border-market:the-chop-shop",
+      "type": "action-art",
+      "sourceRef": {
+        "pinnedRow": true,
+        "cardId": "the-border-market",
+        "actionId": "the-chop-shop"
+      },
+      "descriptionRu": "ломбард/мастерская: corrugated iron, old foamed steel; этаноловый генератор питает риги",
+      "subjectEn": null,
+      "aspectRatio": "1:1",
+      "status": "draft",
+      "ref": null,
+      "filePath": null
+    },
+    {
+      "id": "action-art:the-border-market:the-junk-dealer",
+      "type": "action-art",
+      "sourceRef": {
+        "pinnedRow": true,
+        "cardId": "the-border-market",
+        "actionId": "the-junk-dealer"
+      },
+      "descriptionRu": "палатка: большой навес на кривых стойках, desert style",
+      "subjectEn": null,
+      "aspectRatio": "1:1",
+      "status": "draft",
+      "ref": null,
+      "filePath": null
+    },
+    {
+      "id": "action-art:the-good-doctor:buy-some-nanites",
+      "type": "action-art",
+      "sourceRef": {
+        "pinnedRow": true,
+        "cardId": "the-good-doctor",
+        "actionId": "buy-some-nanites"
+      },
+      "descriptionRu": "светящийся сине-голубой контейнер/устройство",
+      "subjectEn": null,
+      "aspectRatio": "1:1",
+      "status": "draft",
+      "ref": null,
+      "filePath": null
+    },
+    {
+      "id": "action-art:the-good-doctor:buy-some-plasma-packs",
+      "type": "action-art",
+      "sourceRef": {
+        "pinnedRow": true,
+        "cardId": "the-good-doctor",
+        "actionId": "buy-some-plasma-packs"
+      },
+      "descriptionRu": "красный мешок/пакет плазмы на крюке",
+      "subjectEn": null,
+      "aspectRatio": "1:1",
+      "status": "draft",
+      "ref": null,
+      "filePath": null
+    },
+    {
+      "id": "action-art:the-good-doctor:whats-in-these-things",
+      "type": "action-art",
+      "sourceRef": {
+        "pinnedRow": true,
+        "cardId": "the-good-doctor",
+        "actionId": "whats-in-these-things"
+      },
+      "descriptionRu": "медицинский сканер/аппарат зелёного цвета",
+      "subjectEn": null,
+      "aspectRatio": "1:1",
+      "status": "draft",
+      "ref": null,
+      "filePath": null
+    },
+    {
+      "id": "action-art:the-last-thread:burn-it",
+      "type": "action-art",
+      "sourceRef": {
+        "deckId": "bordertown-life",
+        "cardId": "the-last-thread",
+        "actionId": "burn-it"
+      },
+      "descriptionRu": "пламя",
+      "subjectEn": null,
+      "aspectRatio": "1:1",
+      "status": "draft",
+      "ref": null,
+      "filePath": null
+    },
+    {
+      "id": "action-art:the-last-thread:keep-it",
+      "type": "action-art",
+      "sourceRef": {
+        "deckId": "bordertown-life",
+        "cardId": "the-last-thread",
+        "actionId": "keep-it"
+      },
+      "descriptionRu": "кулак",
+      "subjectEn": null,
+      "aspectRatio": "1:1",
+      "status": "draft",
+      "ref": null,
+      "filePath": null
+    },
+    {
+      "id": "action-art:trash-talk-old-wounds:listen-in",
+      "type": "action-art",
+      "sourceRef": {
+        "deckId": "bordertown-life",
+        "cardId": "trash-talk-old-wounds",
+        "actionId": "listen-in"
+      },
+      "descriptionRu": "ухо",
+      "subjectEn": null,
+      "aspectRatio": "1:1",
+      "status": "draft",
+      "ref": null,
+      "filePath": null
+    },
+    {
+      "id": "card-art:back-to-the-border-post",
+      "type": "card-art",
+      "sourceRef": {
+        "pinnedRow": true,
+        "cardId": "back-to-the-border-post"
+      },
+      "descriptionRu": "арт не зафиксирован кадром",
+      "subjectEn": null,
+      "aspectRatio": "3:4",
+      "status": "tbd",
+      "ref": null,
+      "filePath": null
+    },
+    {
+      "id": "card-art:bordertown-bar",
+      "type": "card-art",
+      "sourceRef": {
+        "pinnedRow": true,
+        "cardId": "bordertown-bar"
+      },
+      "descriptionRu": "арт не зафиксирован кадром",
+      "subjectEn": null,
+      "aspectRatio": "3:4",
+      "status": "tbd",
+      "ref": null,
+      "filePath": null
+    },
+    {
+      "id": "card-art:buried-in-ash",
+      "type": "card-art",
+      "sourceRef": {
+        "deckId": "bordertown-life",
+        "cardId": "buried-in-ash"
+      },
+      "descriptionRu": "костёр",
+      "subjectEn": null,
+      "aspectRatio": "3:4",
+      "status": "draft",
+      "ref": null,
+      "filePath": null
+    },
+    {
+      "id": "card-art:exploring-the-town",
+      "type": "card-art",
+      "sourceRef": {
+        "deckId": "bordertown-life",
+        "cardId": "exploring-the-town"
+      },
+      "descriptionRu": "арт не зафиксирован кадром",
+      "subjectEn": null,
+      "aspectRatio": "3:4",
+      "status": "tbd",
+      "ref": null,
+      "filePath": null
+    },
+    {
+      "id": "card-art:getting-into-the-city",
+      "type": "card-art",
+      "sourceRef": {
+        "pinnedRow": true,
+        "cardId": "getting-into-the-city"
+      },
+      "descriptionRu": "иконка со стрелкой",
+      "subjectEn": null,
+      "aspectRatio": "3:4",
+      "status": "draft",
+      "ref": null,
+      "filePath": null
+    },
+    {
+      "id": "card-art:got-to-get-through",
+      "type": "card-art",
+      "sourceRef": {
+        "deckId": "bordertown-life",
+        "cardId": "got-to-get-through"
+      },
+      "descriptionRu": "арт не зафиксирован кадром",
+      "subjectEn": null,
+      "aspectRatio": "3:4",
+      "status": "tbd",
+      "ref": null,
+      "filePath": null
+    },
+    {
+      "id": "card-art:looks-like-summer",
+      "type": "card-art",
+      "sourceRef": {
+        "deckId": "bordertown-life",
+        "cardId": "looks-like-summer"
+      },
+      "descriptionRu": "арт не зафиксирован кадром",
+      "subjectEn": null,
+      "aspectRatio": "3:4",
+      "status": "tbd",
+      "ref": null,
+      "filePath": null
+    },
+    {
+      "id": "card-art:lucky-bullet",
+      "type": "card-art",
+      "sourceRef": {
+        "deckId": "bordertown-life",
+        "cardId": "lucky-bullet"
+      },
+      "descriptionRu": "одиночный патрон на тёмном фоне (9mm)",
+      "subjectEn": null,
+      "aspectRatio": "3:4",
+      "status": "draft",
+      "ref": null,
+      "filePath": null
+    },
+    {
+      "id": "card-art:old-magazines",
+      "type": "card-art",
+      "sourceRef": {
+        "deckId": "bordertown-life",
+        "cardId": "old-magazines"
+      },
+      "descriptionRu": "арт не зафиксирован кадром",
+      "subjectEn": null,
+      "aspectRatio": "3:4",
+      "status": "tbd",
+      "ref": null,
+      "filePath": null
+    },
+    {
+      "id": "card-art:remembering",
+      "type": "card-art",
+      "sourceRef": {
+        "deckId": "bordertown-life",
+        "cardId": "remembering"
+      },
+      "descriptionRu": "арт не зафиксирован кадром",
+      "subjectEn": null,
+      "aspectRatio": "3:4",
+      "status": "tbd",
+      "ref": null,
+      "filePath": null
+    },
+    {
+      "id": "card-art:ripe-for-theft",
+      "type": "card-art",
+      "sourceRef": {
+        "deckId": "bordertown-life",
+        "cardId": "ripe-for-theft"
+      },
+      "descriptionRu": "арт не зафиксирован кадром",
+      "subjectEn": null,
+      "aspectRatio": "3:4",
+      "status": "tbd",
+      "ref": null,
+      "filePath": null
+    },
+    {
+      "id": "card-art:something-to-sell",
+      "type": "card-art",
+      "sourceRef": {
+        "deckId": "bordertown-life",
+        "cardId": "something-to-sell"
+      },
+      "descriptionRu": "антистатичный пакет с двумя планками RAM (зелёная плата на тёмном фоне)",
+      "subjectEn": null,
+      "aspectRatio": "3:4",
+      "status": "draft",
+      "ref": null,
+      "filePath": null
+    },
+    {
+      "id": "card-art:tall-towers",
+      "type": "card-art",
+      "sourceRef": {
+        "deckId": "bordertown-life",
+        "cardId": "tall-towers"
+      },
+      "descriptionRu": "арт не зафиксирован кадром",
+      "subjectEn": null,
+      "aspectRatio": "3:4",
+      "status": "tbd",
+      "ref": null,
+      "filePath": null
+    },
+    {
+      "id": "card-art:the-border-market",
+      "type": "card-art",
+      "sourceRef": {
+        "pinnedRow": true,
+        "cardId": "the-border-market"
+      },
+      "descriptionRu": "арт не зафиксирован кадром",
+      "subjectEn": null,
+      "aspectRatio": "3:4",
+      "status": "tbd",
+      "ref": null,
+      "filePath": null
+    },
+    {
+      "id": "card-art:the-good-doctor",
+      "type": "card-art",
+      "sourceRef": {
+        "pinnedRow": true,
+        "cardId": "the-good-doctor"
+      },
+      "descriptionRu": "арт не зафиксирован кадром",
+      "subjectEn": null,
+      "aspectRatio": "3:4",
+      "status": "tbd",
+      "ref": null,
+      "filePath": null
+    },
+    {
+      "id": "card-art:the-last-thread",
+      "type": "card-art",
+      "sourceRef": {
+        "deckId": "bordertown-life",
+        "cardId": "the-last-thread"
+      },
+      "descriptionRu": "сложенный листок",
+      "subjectEn": null,
+      "aspectRatio": "3:4",
+      "status": "draft",
+      "ref": null,
+      "filePath": null
+    },
+    {
+      "id": "card-art:trash-talk-old-wounds",
+      "type": "card-art",
+      "sourceRef": {
+        "deckId": "bordertown-life",
+        "cardId": "trash-talk-old-wounds"
+      },
+      "descriptionRu": "солнце над сухой деревней/пустошь",
+      "subjectEn": null,
+      "aspectRatio": "3:4",
+      "status": "draft",
+      "ref": null,
+      "filePath": null
+    },
+    {
+      "id": "comic-panel:buried-in-ash:picking-it-out:p1",
+      "type": "comic-panel",
+      "sourceRef": {
+        "deckId": "bordertown-life",
+        "cardId": "buried-in-ash",
+        "actionId": "picking-it-out"
+      },
+      "descriptionRu": "локация",
+      "subjectEn": null,
+      "aspectRatio": "4:5",
+      "status": "draft",
+      "ref": null,
+      "filePath": null
+    },
+    {
+      "id": "comic-panel:buried-in-ash:picking-it-out:p2",
+      "type": "comic-panel",
+      "sourceRef": {
+        "deckId": "bordertown-life",
+        "cardId": "buried-in-ash",
+        "actionId": "picking-it-out"
+      },
+      "descriptionRu": "ботинки на мусоре",
+      "subjectEn": null,
+      "aspectRatio": "4:5",
+      "status": "draft",
+      "ref": null,
+      "filePath": null
+    },
+    {
+      "id": "comic-panel:buried-in-ash:picking-it-out:p3",
+      "type": "comic-panel",
+      "sourceRef": {
+        "deckId": "bordertown-life",
+        "cardId": "buried-in-ash",
+        "actionId": "picking-it-out"
+      },
+      "descriptionRu": "кольцо в руке",
+      "subjectEn": null,
+      "aspectRatio": "4:5",
+      "status": "draft",
+      "ref": null,
+      "filePath": null
+    },
+    {
+      "id": "comic-panel:exploring-the-town:going-further:p1",
+      "type": "comic-panel",
+      "sourceRef": {
+        "deckId": "bordertown-life",
+        "cardId": "exploring-the-town",
+        "actionId": "going-further"
+      },
+      "descriptionRu": "alley-улица со граффити",
+      "subjectEn": null,
+      "aspectRatio": "4:5",
+      "status": "shared",
+      "ref": "comic-panel:exploring-the-town:walk-the-streets:p1",
+      "filePath": null
+    },
+    {
+      "id": "comic-panel:exploring-the-town:going-further:p2",
+      "type": "comic-panel",
+      "sourceRef": {
+        "deckId": "bordertown-life",
+        "cardId": "exploring-the-town",
+        "actionId": "going-further"
+      },
+      "descriptionRu": "мужчина, поднимающийся по лестнице к свету в конце",
+      "subjectEn": null,
+      "aspectRatio": "4:5",
+      "status": "draft",
+      "ref": null,
+      "filePath": null
+    },
+    {
+      "id": "comic-panel:exploring-the-town:going-further:p3",
+      "type": "comic-panel",
+      "sourceRef": {
+        "deckId": "bordertown-life",
+        "cardId": "exploring-the-town",
+        "actionId": "going-further"
+      },
+      "descriptionRu": "группа местных, один с имплантом-глазом",
+      "subjectEn": null,
+      "aspectRatio": "4:5",
+      "status": "shared",
+      "ref": "comic-panel:exploring-the-town:walk-the-streets:p3",
+      "filePath": null
+    },
+    {
+      "id": "comic-panel:exploring-the-town:walk-the-streets:p1",
+      "type": "comic-panel",
+      "sourceRef": {
+        "deckId": "bordertown-life",
+        "cardId": "exploring-the-town",
+        "actionId": "walk-the-streets"
+      },
+      "descriptionRu": "alley-улица со граффити",
+      "subjectEn": null,
+      "aspectRatio": "4:5",
+      "status": "draft",
+      "ref": null,
+      "filePath": null
+    },
+    {
+      "id": "comic-panel:exploring-the-town:walk-the-streets:p2",
+      "type": "comic-panel",
+      "sourceRef": {
+        "deckId": "bordertown-life",
+        "cardId": "exploring-the-town",
+        "actionId": "walk-the-streets"
+      },
+      "descriptionRu": "мужчина с пятном крови на футболке у лестницы",
+      "subjectEn": null,
+      "aspectRatio": "4:5",
+      "status": "draft",
+      "ref": null,
+      "filePath": null
+    },
+    {
+      "id": "comic-panel:exploring-the-town:walk-the-streets:p3",
+      "type": "comic-panel",
+      "sourceRef": {
+        "deckId": "bordertown-life",
+        "cardId": "exploring-the-town",
+        "actionId": "walk-the-streets"
+      },
+      "descriptionRu": "группа местных, один с имплантом-глазом",
+      "subjectEn": null,
+      "aspectRatio": "4:5",
+      "status": "draft",
+      "ref": null,
+      "filePath": null
+    },
+    {
+      "id": "comic-panel:lucky-bullet:join-them:p1",
+      "type": "comic-panel",
+      "sourceRef": {
+        "deckId": "bordertown-life",
+        "cardId": "lucky-bullet",
+        "actionId": "join-them"
+      },
+      "descriptionRu": "группа у поста, один показывает пистолет",
+      "subjectEn": null,
+      "aspectRatio": "4:5",
+      "status": "draft",
+      "ref": null,
+      "filePath": null
+    },
+    {
+      "id": "comic-panel:lucky-bullet:join-them:p2",
+      "type": "comic-panel",
+      "sourceRef": {
+        "deckId": "bordertown-life",
+        "cardId": "lucky-bullet",
+        "actionId": "join-them"
+      },
+      "descriptionRu": "лысый мужик с поднятой рукой и пистолетом на фоне толпы",
+      "subjectEn": null,
+      "aspectRatio": "4:5",
+      "status": "draft",
+      "ref": null,
+      "filePath": null
+    },
+    {
+      "id": "comic-panel:lucky-bullet:join-them:p3",
+      "type": "comic-panel",
+      "sourceRef": {
+        "deckId": "bordertown-life",
+        "cardId": "lucky-bullet",
+        "actionId": "join-them"
+      },
+      "descriptionRu": "крупный план лица женщины с золотой цепью",
+      "subjectEn": null,
+      "aspectRatio": "4:5",
+      "status": "draft",
+      "ref": null,
+      "filePath": null
+    },
+    {
+      "id": "comic-panel:lucky-bullet:join-them:p4",
+      "type": "comic-panel",
+      "sourceRef": {
+        "deckId": "bordertown-life",
+        "cardId": "lucky-bullet",
+        "actionId": "join-them"
+      },
+      "descriptionRu": "рука со вскрытым магазином, заряженным патронами",
+      "subjectEn": null,
+      "aspectRatio": "4:5",
+      "status": "draft",
+      "ref": null,
+      "filePath": null
+    },
+    {
+      "id": "comic-panel:lucky-bullet:join-them:p5",
+      "type": "comic-panel",
+      "sourceRef": {
+        "deckId": "bordertown-life",
+        "cardId": "lucky-bullet",
+        "actionId": "join-them"
+      },
+      "descriptionRu": "бросанный в воздух патрон над пальцами",
+      "subjectEn": null,
+      "aspectRatio": "4:5",
+      "status": "draft",
+      "ref": null,
+      "filePath": null
+    },
+    {
+      "id": "comic-panel:old-magazines:ancient-news:p1",
+      "type": "comic-panel",
+      "sourceRef": {
+        "deckId": "bordertown-life",
+        "cardId": "old-magazines",
+        "actionId": "ancient-news"
+      },
+      "descriptionRu": "улица рынка",
+      "subjectEn": null,
+      "aspectRatio": "4:5",
+      "status": "draft",
+      "ref": null,
+      "filePath": null
+    },
+    {
+      "id": "comic-panel:old-magazines:ancient-news:p2",
+      "type": "comic-panel",
+      "sourceRef": {
+        "deckId": "bordertown-life",
+        "cardId": "old-magazines",
+        "actionId": "ancient-news"
+      },
+      "descriptionRu": "лавка торговца в капюшоне",
+      "subjectEn": null,
+      "aspectRatio": "4:5",
+      "status": "draft",
+      "ref": null,
+      "filePath": null
+    },
+    {
+      "id": "comic-panel:old-magazines:ancient-news:p3",
+      "type": "comic-panel",
+      "sourceRef": {
+        "deckId": "bordertown-life",
+        "cardId": "old-magazines",
+        "actionId": "ancient-news"
+      },
+      "descriptionRu": "старик, сидящий за коробкой журналов",
+      "subjectEn": null,
+      "aspectRatio": "4:5",
+      "status": "draft",
+      "ref": null,
+      "filePath": null
+    },
+    {
+      "id": "comic-panel:old-magazines:ancient-news:p4",
+      "type": "comic-panel",
+      "sourceRef": {
+        "deckId": "bordertown-life",
+        "cardId": "old-magazines",
+        "actionId": "ancient-news"
+      },
+      "descriptionRu": "крупный план обложки журнала TIME «LOS ANGELES 2075»",
+      "subjectEn": null,
+      "aspectRatio": "4:5",
+      "status": "draft",
+      "ref": null,
+      "filePath": null
+    },
+    {
+      "id": "comic-panel:the-last-thread:keep-it:p1",
+      "type": "comic-panel",
+      "sourceRef": {
+        "deckId": "bordertown-life",
+        "cardId": "the-last-thread",
+        "actionId": "keep-it"
+      },
+      "descriptionRu": "промзона/трущбы",
+      "subjectEn": null,
+      "aspectRatio": "4:5",
+      "status": "draft",
+      "ref": null,
+      "filePath": null
+    },
+    {
+      "id": "comic-panel:the-last-thread:keep-it:p2",
+      "type": "comic-panel",
+      "sourceRef": {
+        "deckId": "bordertown-life",
+        "cardId": "the-last-thread",
+        "actionId": "keep-it"
+      },
+      "descriptionRu": "крупный план: рука держит клочок с красной надписью «Martha»",
+      "subjectEn": null,
+      "aspectRatio": "4:5",
+      "status": "draft",
+      "ref": null,
+      "filePath": null
+    },
+    {
+      "id": "comic-panel:the-last-thread:keep-it:p3",
+      "type": "comic-panel",
+      "sourceRef": {
+        "deckId": "bordertown-life",
+        "cardId": "the-last-thread",
+        "actionId": "keep-it"
+      },
+      "descriptionRu": "персонаж в перчатке убирает бумажку во внутренний карман",
+      "subjectEn": null,
+      "aspectRatio": "4:5",
+      "status": "draft",
+      "ref": null,
+      "filePath": null
+    },
+    {
+      "id": "deck-art:bordertown-life",
+      "type": "deck-art",
+      "sourceRef": {
+        "deckId": "bordertown-life",
+        "cardId": "deck-clicked"
+      },
+      "descriptionRu": "баннерный тайл со стрелкой; во время онбординга тот же слот занимал красный туториал-баннер «CLICK ME»",
+      "subjectEn": null,
+      "aspectRatio": "3:2",
+      "status": "draft",
+      "ref": null,
+      "filePath": null
+    },
+    {
+      "id": "deck-art:card-back",
+      "type": "deck-art",
+      "sourceRef": {
+        "mechanic": "handRefresh"
+      },
+      "descriptionRu": "рубашка карты — «сколотый»/царапанный паттерн; свежие карты показываются рубашкой до первого открытия",
+      "subjectEn": null,
+      "aspectRatio": "3:4",
+      "status": "tbd",
+      "ref": null,
+      "filePath": null
+    },
+    {
+      "id": "window-art:the-good-doctor",
+      "type": "window-art",
+      "sourceRef": {
+        "pinnedRow": true,
+        "cardId": "the-good-doctor"
+      },
+      "descriptionRu": "небольшой домик с синим медкрестом, пустынная обстановка, фигура человека снаружи",
+      "subjectEn": null,
+      "aspectRatio": "3:2",
+      "status": "draft",
+      "ref": null,
+      "filePath": null
+    }
+  ]
+}
